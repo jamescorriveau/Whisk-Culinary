@@ -1,0 +1,163 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Rubber Spatula",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/230017/1058176.jpg",
+      "price": 10.99,
+      "quantity": 50
+    },
+
+    {
+      "id": 2,
+      "name": "Metal Spatula",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/459989/1726599.jpg",
+      "price": 15.49,
+      "quantity": 30
+    },
+
+    {
+      "id": 3,
+      "name": "Six Pan",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/14096/2145932.jpg",
+      "price": 7.99,
+      "quantity": 70
+    },
+
+    {
+      "id": 4,
+      "name": "Nine Pan",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/69779/2146823.jpg",
+      "price": 12.99,
+      "quantity": 25
+    },
+
+    {
+      "id": 5,
+      "name": "Sheet Pan",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/7252/2266829.jpg",
+      "price": 9.49,
+      "quantity": 60
+    },
+
+    {
+      "id": 6,
+      "name": "Cambro 2qt",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/19656/1893451.jpg",
+      "price": 8.99,
+      "quantity": 45
+    },
+
+    {
+      "id": 7,
+      "name": "Cambro 4qt",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/715937/2471461.jpg",
+      "price": 11.99,
+      "quantity": 35
+    },
+
+    {
+      "id": 8,
+      "name": "Cambro 6qt",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/715938/2471462.jpg",
+      "price": 14.99,
+      "quantity": 20
+    },
+
+    {
+      "id": 9,
+      "name": "Cambro 8qt",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/715935/2471463.jpg",
+      "price": 16.99,
+      "quantity": 40
+    },
+
+    {
+      "id": 10,
+      "name": "Cambro 12qt",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/715950/2470661.jpg",
+      "price": 6.99,
+      "quantity": 55
+    },
+
+    {
+      "id": 11,
+      "name": "Cambro 22qt",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/715909/2471465.jpg",
+      "price": 13.99,
+      "quantity": 28
+    },
+
+    {
+      "id": 12,
+      "name": "Quart Containers with Lids",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/230282/2397944.jpg",
+      "price": 17.99,
+      "quantity": 18
+    },
+
+    {
+      "id": 13,
+      "name": "Pint Containers With Lids",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/230363/2404712.jpg",
+      "price": 8.49,
+      "quantity": 48
+    },
+
+    {
+      "id": 14,
+      "name": "Silpat 1/4 Size",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/407433/1544082.jpg",
+      "price": 19.99,
+      "quantity": 15
+    },
+
+    {
+      "id": 15,
+      "name": "Silpat Full Size",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/407468/1525193.jpg",
+      "price": 10.99,
+      "quantity": 33
+    },
+
+    {
+      "id": 16,
+      "name": "Sil Pat 1/2 Size",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/407551/1525182.jpg",
+      "price": 11.99,
+      "quantity": 27
+    },
+
+    {
+      "id": 17,
+      "name": "Latex Gloves Small",
+      "image": "https://example.com/image17.jpg",
+      "price": 12.99,
+      "quantity": 22
+    },
+
+    {
+      "id": 18,
+      "name": "Latex Gloves Large",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/73750/2434719.jpg",
+      "price": 14.49,
+      "quantity": 38
+    },
+
+    {
+      "id": 19,
+      "name": "Latex Gloves XL",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/73750/2434719.jpg",
+      "price": 9.99,
+      "quantity": 44
+    },
+
+    {
+      "id": 20,
+      "name": "Latex Gloves XXL",
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/73750/2434719.jpg",
+      "price": 15.99,
+      "quantity": 21
+    }
+  ]
+}

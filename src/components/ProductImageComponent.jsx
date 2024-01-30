@@ -1,10 +1,17 @@
-// ProductImage.jsx
+// ProductImageComponenet.jsx
+
 import React from "react";
 
-function ProductImageComponent({ imageUrl, altText }) {
+function ProductImageComponent({ imageFilename, altText }) {
+  const imageUrl = `/product/${imageFilename}`;
+
   return (
     <div>
-      <img src={imageUrl} alt={altText} />
+      <img
+        src={imageUrl}
+        alt={altText}
+        style={{ width: "100px", height: "100px" }}
+      />
     </div>
   );
 }
