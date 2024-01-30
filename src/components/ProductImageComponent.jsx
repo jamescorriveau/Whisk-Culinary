@@ -2,9 +2,7 @@
 
 import React from "react";
 
-function ProductImageComponent({ imageFilename, altText }) {
-  const imageUrl = `/product/${imageFilename}`;
-
+function ProductImageComponent({ imageUrl, altText }) {
   return (
     <div>
       <img
