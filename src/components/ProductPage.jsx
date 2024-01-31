@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import ProductImageComponent from "./ProductImageComponent";
 
-function ProductPage() {
+function ProductPage({ cart, addToCart }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -16,7 +16,6 @@ function ProductPage() {
         .then((response) => response.json())
         .then((data) => {
           setFilteredProducts(data);
-          // Reset quantities state when new search is performed
           setQuantities({});
         })
         .catch((error) => {
@@ -70,6 +69,13 @@ function ProductPage() {
                   min="0"
                   max={product.quantity}
                 />
+                <button
+                  onClick={() =>
+                    addToCart(product, quantities[product.id] || 0)
+                  }
+                >
+                  Add to Cart
+                </button>
               </div>
             ))
           )}
