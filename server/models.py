@@ -1,6 +1,6 @@
 # models.py
 
-from app import db
+from extensions import db
 
 class Product(db.Model):
     __tablename__ = 'product'
@@ -19,3 +19,4 @@ class Product(db.Model):
             "price": self.price,
             "quantity": self.quantity
         }
+

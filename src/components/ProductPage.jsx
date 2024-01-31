@@ -7,6 +7,7 @@ function ProductPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [quantities, setQuantities] = useState({});
 
   // Handle search
   const handleSearch = () => {
@@ -15,6 +16,8 @@ function ProductPage() {
         .then((response) => response.json())
         .then((data) => {
           setFilteredProducts(data);
+          // Reset quantities state when new search is performed
+          setQuantities({});
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -23,6 +26,11 @@ function ProductPage() {
     } else {
       setFilteredProducts([]);
     }
+  };
+
+  // Handle quantity change
+  const handleQuantityChange = (productId, quantity) => {
+    setQuantities({ ...quantities, [productId]: Number(quantity) });
   };
 
   return (
@@ -52,7 +60,16 @@ function ProductPage() {
                   altText={product.name}
                 />
                 <p>Price: ${product.price}</p>
-                <p>Quantity: {product.quantity}</p>
+                <p>Available Quantity: {product.quantity}</p>
+                <input
+                  type="number"
+                  value={quantities[product.id] || 0}
+                  onChange={(e) =>
+                    handleQuantityChange(product.id, e.target.value)
+                  }
+                  min="0"
+                  max={product.quantity}
+                />
               </div>
             ))
           )}

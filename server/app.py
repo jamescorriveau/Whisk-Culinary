@@ -1,21 +1,19 @@
 # app.py
 
+# app.py
 
 from flask import Flask, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_migrate import Migrate
+from extensions import db, migrate
+from models import Product
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-# Import models and routes after db initialization to avoid circular imports
-from models import Product
+db.init_app(app)
+migrate.init_app(app, db)
 
 @app.route('/api/products', methods=['GET'])
 def get_products():
@@ -36,3 +34,4 @@ def search_products():
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
+

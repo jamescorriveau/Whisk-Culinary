@@ -1,7 +1,8 @@
 # seed.py
 
 import json
-from app import db, app
+from app import app
+from extensions import db
 from models import Product
 
 def seed_data_from_json():
