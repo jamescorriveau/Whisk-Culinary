@@ -2,7 +2,7 @@
 
 import React from "react";
 
-function ShoppingCart({ cart }) {
+function ShoppingCart({ cart, removeFromCart }) {
   return (
     <div>
       <h2>Shopping Cart</h2>
@@ -11,7 +11,7 @@ function ShoppingCart({ cart }) {
           {cart.map((item, index) => (
             <li key={index}>
               {item.name} - Quantity: {item.quantity}
-              {/* remove button */}
+              <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </li>
           ))}
         </ul>
