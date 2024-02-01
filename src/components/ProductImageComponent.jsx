@@ -1,5 +1,3 @@
-// ProductImageComponenet.jsx
-
 import React from "react";
 
 function ProductImageComponent({ imageUrl, altText }) {

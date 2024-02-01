@@ -1,19 +1,16 @@
-// ProductPage.jsx
+// ProductSearch.jsx
 
-import React, { useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
 import ProductImageComponent from "./ProductImageComponent";
 
-function ProductPage() {
-  const [searchQuery, setSearchQuery] = useState("");
+function ProductSearch({ searchQuery }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [error, setError] = useState(null);
   const [quantities, setQuantities] = useState({});
-
   const { addToCart } = useContext(CartContext);
 
-  // Handle search functionality
-  const handleSearch = () => {
+  useEffect(() => {
     if (searchQuery) {
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
         .then((response) => response.json())
@@ -28,9 +25,8 @@ function ProductPage() {
     } else {
       setFilteredProducts([]);
     }
-  };
+  }, [searchQuery]);
 
-  // Increment quantity
   const incrementQuantity = (productId) => {
     setQuantities({
       ...quantities,
@@ -38,7 +34,6 @@ function ProductPage() {
     });
   };
 
-  // Decrement quantity
   const decrementQuantity = (productId) => {
     setQuantities({
       ...quantities,
@@ -46,7 +41,6 @@ function ProductPage() {
     });
   };
 
-  // Handle quantity change
   const handleQuantityChange = (productId, quantity) => {
     setQuantities({ ...quantities, [productId]: Number(quantity) });
   };
@@ -54,20 +48,6 @@ function ProductPage() {
   return (
     <div>
       <h1>Product Page</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Search by Product Name"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              handleSearch();
-            }
-          }}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
       {error ? (
         <p>{error}</p>
       ) : (
@@ -117,4 +97,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default ProductSearch;

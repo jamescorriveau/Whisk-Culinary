@@ -4,6 +4,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const addToCart = (product, quantity) => {
     const existingProductIndex = cart.findIndex(
@@ -25,7 +26,9 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, isLoggedIn, setIsLoggedIn }}
+    >
       {children}
     </CartContext.Provider>
   );
