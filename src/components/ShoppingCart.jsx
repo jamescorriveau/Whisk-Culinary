@@ -1,8 +1,11 @@
 // ShoppingCart.jsx
 
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "./CartContext";
 
-function ShoppingCart({ cart, removeFromCart }) {
+function ShoppingCart() {
+  const { cart, removeFromCart } = useContext(CartContext);
+
   return (
     <div>
       <h2>Shopping Cart</h2>

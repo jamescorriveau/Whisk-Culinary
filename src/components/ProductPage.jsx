@@ -1,15 +1,18 @@
 // ProductPage.jsx
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { CartContext } from "./CartContext";
 import ProductImageComponent from "./ProductImageComponent";
 
-function ProductPage({ cart, addToCart }) {
+function ProductPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [error, setError] = useState(null);
   const [quantities, setQuantities] = useState({});
 
-  // Handle search
+  const { addToCart } = useContext(CartContext);
+
+  // Handle search functionality
   const handleSearch = () => {
     if (searchQuery) {
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
@@ -27,6 +30,22 @@ function ProductPage({ cart, addToCart }) {
     }
   };
 
+  // Increment quantity
+  const incrementQuantity = (productId) => {
+    setQuantities({
+      ...quantities,
+      [productId]: (quantities[productId] || 0) + 1,
+    });
+  };
+
+  // Decrement quantity
+  const decrementQuantity = (productId) => {
+    setQuantities({
+      ...quantities,
+      [productId]: Math.max((quantities[productId] || 0) - 1, 0),
+    });
+  };
+
   // Handle quantity change
   const handleQuantityChange = (productId, quantity) => {
     setQuantities({ ...quantities, [productId]: Number(quantity) });
@@ -41,6 +60,11 @@ function ProductPage({ cart, addToCart }) {
           placeholder="Search by Product Name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
         />
         <button onClick={handleSearch}>Search</button>
       </div>
@@ -49,7 +73,7 @@ function ProductPage({ cart, addToCart }) {
       ) : (
         <div>
           {filteredProducts.length === 0 ? (
-            <p>Enter a search term to find products.</p>
+            <p>No products found. Please search again.</p>
           ) : (
             filteredProducts.map((product) => (
               <div key={product.id}>
@@ -60,15 +84,23 @@ function ProductPage({ cart, addToCart }) {
                 />
                 <p>Price: ${product.price}</p>
                 <p>Available Quantity: {product.quantity}</p>
-                <input
-                  type="number"
-                  value={quantities[product.id] || 0}
-                  onChange={(e) =>
-                    handleQuantityChange(product.id, e.target.value)
-                  }
-                  min="0"
-                  max={product.quantity}
-                />
+                <div>
+                  <button onClick={() => decrementQuantity(product.id)}>
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={quantities[product.id] || 0}
+                    onChange={(e) =>
+                      handleQuantityChange(product.id, e.target.value)
+                    }
+                    min="0"
+                    max={product.quantity}
+                  />
+                  <button onClick={() => incrementQuantity(product.id)}>
+                    +
+                  </button>
+                </div>
                 <button
                   onClick={() =>
                     addToCart(product, quantities[product.id] || 0)
