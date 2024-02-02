@@ -8,15 +8,19 @@ import ProductSearch from "./components/ProductSearch";
 import ShoppingCart from "./components/ShoppingCart";
 import UserProfile from "./components/UserProfile";
 import { CartProvider } from "./components/CartContext";
-import "./index.css";
+import BrandHeader from "./components/BrandHeader";
 import "./App.css";
+import "./index.css";
 
 function App() {
   return (
     <CartProvider>
       <div className="App">
+        <BrandHeader />
         <Header />
-        <div className="pt-16">
+        <div className="content">
+          {" "}
+          {/* Add a content div */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<ProductSearch />} />

@@ -31,7 +31,9 @@ function Header() {
   );
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50">
+    <header className="fixed top-0 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50 mt-16">
+      {" "}
+      {/* Added mt-16 for margin-top */}
       <form onSubmit={handleSearchSubmit} className="inline">
         <input
           type="text"
