@@ -2,6 +2,7 @@
 
 import React, { useContext } from "react";
 import { CartContext } from "./CartContext";
+import ProductImageComponent from "./ProductImageComponent";
 
 function ShoppingCart() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
@@ -26,11 +27,28 @@ function ShoppingCart() {
       {cart.length > 0 ? (
         <ul>
           {cart.map((item, index) => (
-            <li key={index}>
-              {item.name} - Quantity: {item.quantity}
-              <button onClick={() => incrementQuantity(item.id)}>+</button>
-              <button onClick={() => decrementQuantity(item.id)}>-</button>
-              <button onClick={() => removeFromCart(item.id)}>Remove</button>
+            <li
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
+              <ProductImageComponent
+                imageUrl={item.image}
+                altText={item.name}
+              />
+              <div style={{ marginLeft: "10px" }}>
+                {item.name} - Quantity: {item.quantity}
+                <div>
+                  <button onClick={() => incrementQuantity(item.id)}>+</button>
+                  <button onClick={() => decrementQuantity(item.id)}>-</button>
+                  <button onClick={() => removeFromCart(item.id)}>
+                    Remove
+                  </button>
+                </div>
+              </div>
             </li>
           ))}
         </ul>

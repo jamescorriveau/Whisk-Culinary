@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.17",
     "babel-preset-react": "^6.24.1",
     "json-server": "^1.0.0-alpha.23",
+    "postcss": "^8.4.33",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3"
@@ -24,6 +26,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "tailwindcss": "^3.4.1",
     "vite": "^5.0.8",
     "vite-plugin-proxy": "^0.5.0"
   }

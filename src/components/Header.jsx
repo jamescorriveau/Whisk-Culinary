@@ -1,8 +1,9 @@
 // Header.jsx
 
 import React, { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { isLoggedIn, setIsLoggedIn, cart } = useContext(CartContext);
@@ -15,7 +16,9 @@ function Header() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    navigate(`/search?q=${encodeURIComponent(localSearchQuery)}`);
+    if (localSearchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(localSearchQuery)}`);
+    }
   };
 
   const toggleLoginState = () => {
@@ -28,40 +31,30 @@ function Header() {
   );
 
   return (
-    <header
-      style={{
-        backgroundColor: "black",
-        color: "white",
-        padding: "10px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <header className="fixed top-0 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50">
+      <form onSubmit={handleSearchSubmit} className="inline">
+        <input
+          type="text"
+          placeholder="Search by Product Name"
+          value={localSearchQuery}
+          onChange={handleSearchChange}
+          className="py-1 px-2 text-black"
+        />
+      </form>
       <div>
-        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-          <button>Home</button> {/* Home button added here */}
-        </Link>
-        <form onSubmit={handleSearchSubmit} style={{ display: "inline" }}>
-          <input
-            type="text"
-            placeholder="Search by Product Name"
-            value={localSearchQuery}
-            onChange={handleSearchChange}
-            style={{ padding: "5px" }}
-          />
-          <button type="submit" style={{ margin: "0 10px" }}>
-            Search
-          </button>
-        </form>
-      </div>
-      <div>
-        <button onClick={toggleLoginState} style={{ margin: "0 10px" }}>
+        <button onClick={() => navigate("/")} className="header-button mx-2">
+          Home
+        </button>
+        <button onClick={toggleLoginState} className="header-button mx-2">
           {isLoggedIn ? "Sign Out" : "Sign In"}
         </button>
-        <button>User Profile</button>
-        <Link to="/cart" style={{ textDecoration: "none", color: "white" }}>
-          <button>Cart ({totalItemsInCart})</button>
+        <Link to="/user-profile" className="text-white">
+          <button className="header-button mx-2">User Profile</button>
+        </Link>
+        <Link to="/cart" className="text-white">
+          <button className="header-button mx-2">
+            Cart ({totalItemsInCart})
+          </button>
         </Link>
       </div>
     </header>
