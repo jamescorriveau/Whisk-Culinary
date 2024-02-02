@@ -33,12 +33,12 @@ function ProductSearch() {
       {error ? (
         <p>{error}</p>
       ) : (
-        <div>
+        <div className="product-grid">
           {filteredProducts.length === 0 ? (
             <p>No products found.</p>
           ) : (
             filteredProducts.map((product) => (
-              <div key={product.id}>
+              <div key={product.id} className="product-item">
                 <h2>{product.name}</h2>
                 <ProductImageComponent
                   imageUrl={product.image}

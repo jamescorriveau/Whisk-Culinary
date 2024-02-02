@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.17",
+    "axios": "^1.6.7",
     "babel-preset-react": "^6.24.1",
+    "gsap": "^3.12.5",
     "json-server": "^1.0.0-alpha.23",
     "postcss": "^8.4.33",
     "react": "^18.2.0",

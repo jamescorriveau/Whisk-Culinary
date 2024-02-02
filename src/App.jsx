@@ -19,7 +19,6 @@ function App() {
         <BrandHeader />
         <Header />
         <div className="content">
-          {" "}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<ProductSearch />} />
