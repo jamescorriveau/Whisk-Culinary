@@ -12,15 +12,15 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Set the secret key from environment variable or use a default one
+
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'default-secret-key')
 
-# Initialize extensions
+
 db.init_app(app)
 migrate.init_app(app, db)
 bcrypt.init_app(app)
 
-# Flask-Login configuration
+
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
@@ -29,7 +29,7 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/api/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -38,16 +38,31 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('profile'))  # Redirect to profile page or dashboard
-        else:
-            flash('Invalid login credentials')
+            return redirect(url_for('profile'))  #
 
-    return render_template('login.html')
-
-@app.route('/logout')
+@app.route('/api/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))  # Redirect to home page
+    return redirect(url_for('index'))  
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    try:
+        data = request.json
+        hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+        new_user = User(
+            username=data['username'],
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            password=hashed_password,
+            email=data['email']
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({"message": "User registered successfully"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/api/products', methods=['GET'])
 @login_required

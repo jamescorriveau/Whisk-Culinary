@@ -9,7 +9,9 @@ function UserProfile() {
   });
 
   const [signupForm, setSignupForm] = useState({
-    name: "",
+    username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
   });
@@ -22,9 +24,39 @@ function UserProfile() {
     setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const submitFormData = async (url, formData) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Response success:", data);
+        // Handle successful response here
+        // Redirect or show a success message
+      } else {
+        console.error("Server error:", data);
+        // Handle server-side errors (e.g., validation errors)
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      // Handle network or other request errors
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target.name === "loginForm" ? loginForm : signupForm);
+    const formName = event.target.name;
+    const formData = formName === "loginForm" ? loginForm : signupForm;
+    const url = formName === "loginForm" ? "/api/login" : "/api/register"; // Updated URL
+
+    submitFormData(url, formData);
   };
 
   return (
@@ -58,13 +90,12 @@ function UserProfile() {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-black text-[#d5b500] rounded-md"
+            className="w-full px-4 py-2 bg-black text-white rounded-md"
           >
             Login
           </button>
         </form>
       </div>
-
       <div className="w-1/2">
         <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
         <form
@@ -75,10 +106,30 @@ function UserProfile() {
           <div className="w-full">
             <input
               type="text"
-              name="name"
-              value={signupForm.name}
+              name="username"
+              value={signupForm.username}
               onChange={handleSignupChange}
-              placeholder="Name"
+              placeholder="Username"
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-full">
+            <input
+              type="text"
+              name="first_name"
+              value={signupForm.first_name}
+              onChange={handleSignupChange}
+              placeholder="First Name"
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-full">
+            <input
+              type="text"
+              name="last_name"
+              value={signupForm.last_name}
+              onChange={handleSignupChange}
+              placeholder="Last Name"
               className="w-full p-2 border border-gray-300 rounded-md"
             />
           </div>
@@ -104,7 +155,7 @@ function UserProfile() {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-black text-[#d5b500] rounded-md"
+            className="w-full px-4 py-2 bg-black text-white rounded-md"
           >
             Sign Up
           </button>
