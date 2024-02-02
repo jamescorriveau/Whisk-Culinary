@@ -1,22 +1,32 @@
-import React, { useState, useContext } from "react";
-import { CartContext } from "./CartContext";
+// Header.jsx
 
-function Header({ setSearchQuery }) {
-  const { isLoggedIn, setIsLoggedIn } = useContext(CartContext);
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "./CartContext";
+import { Link } from "react-router-dom";
+
+function Header() {
+  const { isLoggedIn, setIsLoggedIn, cart } = useContext(CartContext);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     setLocalSearchQuery(e.target.value);
   };
 
   const handleSearchSubmit = (e) => {
-    e.preventDefault(); // Prevent page refresh
-    setSearchQuery(localSearchQuery);
+    e.preventDefault();
+    navigate(`/search?q=${encodeURIComponent(localSearchQuery)}`);
   };
 
   const toggleLoginState = () => {
     setIsLoggedIn(!isLoggedIn);
   };
+
+  const totalItemsInCart = cart.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
     <header
@@ -46,6 +56,9 @@ function Header({ setSearchQuery }) {
           {isLoggedIn ? "Sign Out" : "Sign In"}
         </button>
         <button>User Profile</button>
+        <Link to="/cart" style={{ textDecoration: "none", color: "white" }}>
+          <button>Cart ({totalItemsInCart})</button>
+        </Link>
       </div>
     </header>
   );

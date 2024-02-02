@@ -1,3 +1,5 @@
+// ProductImageComponent.jsx
+
 import React from "react";
 
 function ProductImageComponent({ imageUrl, altText }) {
