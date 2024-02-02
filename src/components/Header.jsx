@@ -1,9 +1,8 @@
 // Header.jsx
 
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link
 import { CartContext } from "./CartContext";
-import { Link } from "react-router-dom";
 
 function Header() {
   const { isLoggedIn, setIsLoggedIn, cart } = useContext(CartContext);
@@ -39,18 +38,23 @@ function Header() {
         alignItems: "center",
       }}
     >
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type="text"
-          placeholder="Search by Product Name"
-          value={localSearchQuery}
-          onChange={handleSearchChange}
-          style={{ padding: "5px" }}
-        />
-        <button type="submit" style={{ margin: "0 10px" }}>
-          Search
-        </button>
-      </form>
+      <div>
+        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <button>Home</button> {/* Home button added here */}
+        </Link>
+        <form onSubmit={handleSearchSubmit} style={{ display: "inline" }}>
+          <input
+            type="text"
+            placeholder="Search by Product Name"
+            value={localSearchQuery}
+            onChange={handleSearchChange}
+            style={{ padding: "5px" }}
+          />
+          <button type="submit" style={{ margin: "0 10px" }}>
+            Search
+          </button>
+        </form>
+      </div>
       <div>
         <button onClick={toggleLoginState} style={{ margin: "0 10px" }}>
           {isLoggedIn ? "Sign Out" : "Sign In"}
