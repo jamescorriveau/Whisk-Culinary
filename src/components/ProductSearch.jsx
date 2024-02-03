@@ -46,7 +46,7 @@ function ProductSearch() {
                 />
                 <p>Price: ${product.price}</p>
                 <button onClick={() => addToCart(product, 1)}>
-                  Add to Cart
+                  Add to Shopping Bag
                 </button>
               </div>
             ))

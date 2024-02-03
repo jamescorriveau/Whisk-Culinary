@@ -53,7 +53,7 @@ function ShoppingCart() {
           ))}
         </ul>
       ) : (
-        <p>Your cart is empty.</p>
+        <p>Your Shopping Bag is empty.</p>
       )}
     </div>
   );
