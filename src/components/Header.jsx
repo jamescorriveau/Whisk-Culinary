@@ -19,9 +19,9 @@ function Header() {
     e.preventDefault();
     if (localSearchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(localSearchQuery)}`);
+      setLocalSearchQuery("");
     }
   };
-
   const toggleLoginState = () => {
     setIsLoggedIn(!isLoggedIn);
   };
