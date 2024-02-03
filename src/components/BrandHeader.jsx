@@ -12,7 +12,9 @@ function BrandHeader() {
         >
           Whisk
         </h1>
-        <p className="text-3xl">Precision Cooking at Home</p>
+        <p className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
+          Precision Cooking at Home
+        </p>
       </div>
     </div>
   );
