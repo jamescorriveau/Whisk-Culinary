@@ -38,15 +38,11 @@ function UserProfile() {
 
       if (response.ok) {
         console.log("Response success:", data);
-        // Handle successful response here
-        // Redirect or show a success message
       } else {
         console.error("Server error:", data);
-        // Handle server-side errors (e.g., validation errors)
       }
     } catch (error) {
       console.error("Network error:", error);
-      // Handle network or other request errors
     }
   };
 
@@ -54,7 +50,7 @@ function UserProfile() {
     event.preventDefault();
     const formName = event.target.name;
     const formData = formName === "loginForm" ? loginForm : signupForm;
-    const url = formName === "loginForm" ? "/api/login" : "/api/register"; // Updated URL
+    const url = formName === "loginForm" ? "/api/login" : "/api/register";
 
     submitFormData(url, formData);
   };
