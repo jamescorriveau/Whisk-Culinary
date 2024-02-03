@@ -1,9 +1,8 @@
 // Header.jsx
 
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
-import { Link } from "react-router-dom";
 import UserProfile from "./UserProfile";
 
 function Header() {
@@ -37,8 +36,7 @@ function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50 mt-40">
-      {" "}
+    <header className="fixed top-0 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50">
       <form onSubmit={handleSearchSubmit} className="inline">
         <input
           type="text"
@@ -48,7 +46,7 @@ function Header() {
           className="py-1 px-2 text-black outline-none"
         />
       </form>
-      <div>
+      <div className="flex items-center">
         <button
           onClick={() => navigate("/")}
           className="header-button mx-2 dark-gold-text"
@@ -68,16 +66,30 @@ function Header() {
           My Profile
         </button>
         <Link to="/cart" className="text-white">
-          <button className="header-button mx-2 dark-gold-text">
-            Cart ({totalItemsInCart})
+          <button className="header-button mx-2 dark-gold-text flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+              />
+            </svg>
+            <span className="ml-2">({totalItemsInCart})</span>
           </button>
         </Link>
-        {showDropdown && (
-          <div className="dropdown-menu">
-            <UserProfile />
-          </div>
-        )}
       </div>
+      {showDropdown && (
+        <div className="dropdown-menu">
+          <UserProfile />
+        </div>
+      )}
     </header>
   );
 }
