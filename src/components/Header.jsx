@@ -4,11 +4,13 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import { Link } from "react-router-dom";
+import UserProfile from "./UserProfile";
 
 function Header() {
   const { isLoggedIn, setIsLoggedIn, cart } = useContext(CartContext);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
   const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleSearchChange = (e) => {
     setLocalSearchQuery(e.target.value);
@@ -29,6 +31,10 @@ function Header() {
     (total, item) => total + item.quantity,
     0
   );
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50 mt-40">
@@ -55,16 +61,22 @@ function Header() {
         >
           {isLoggedIn ? "Sign Out" : "Sign In"}
         </button>
-        <Link to="/user-profile" className="text-white">
-          <button className="header-button mx-2 dark-gold-text">
-            My Profile
-          </button>
-        </Link>
+        <button
+          onClick={toggleDropdown}
+          className="header-button mx-2 dark-gold-text"
+        >
+          My Profile
+        </button>
         <Link to="/cart" className="text-white">
           <button className="header-button mx-2 dark-gold-text">
             Cart ({totalItemsInCart})
           </button>
         </Link>
+        {showDropdown && (
+          <div className="dropdown-menu">
+            <UserProfile />
+          </div>
+        )}
       </div>
     </header>
   );
