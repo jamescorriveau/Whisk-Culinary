@@ -90,7 +90,7 @@ function UserProfile() {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-black text-white rounded-md"
+            className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
           >
             Login
           </button>
@@ -155,7 +155,7 @@ function UserProfile() {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-black text-white rounded-md"
+            className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
           >
             Sign Up
           </button>
