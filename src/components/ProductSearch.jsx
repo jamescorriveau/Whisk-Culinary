@@ -29,7 +29,6 @@ function ProductSearch() {
 
   return (
     <div>
-      <h1>Product Search Results</h1>
       {error ? (
         <p>{error}</p>
       ) : (
