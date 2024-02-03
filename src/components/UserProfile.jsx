@@ -75,7 +75,7 @@ function UserProfile() {
               value={loginForm.email}
               onChange={handleLoginChange}
               placeholder="Email"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <div className="w-full">
@@ -85,7 +85,7 @@ function UserProfile() {
               value={loginForm.password}
               onChange={handleLoginChange}
               placeholder="Password"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <button
@@ -110,7 +110,7 @@ function UserProfile() {
               value={signupForm.username}
               onChange={handleSignupChange}
               placeholder="Username"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <div className="w-full">
@@ -120,7 +120,7 @@ function UserProfile() {
               value={signupForm.first_name}
               onChange={handleSignupChange}
               placeholder="First Name"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <div className="w-full">
@@ -130,7 +130,7 @@ function UserProfile() {
               value={signupForm.last_name}
               onChange={handleSignupChange}
               placeholder="Last Name"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <div className="w-full">
@@ -140,7 +140,7 @@ function UserProfile() {
               value={signupForm.email}
               onChange={handleSignupChange}
               placeholder="Email"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <div className="w-full">
@@ -150,7 +150,7 @@ function UserProfile() {
               value={signupForm.password}
               onChange={handleSignupChange}
               placeholder="Password"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <button
