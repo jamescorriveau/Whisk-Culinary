@@ -36,7 +36,7 @@ function Header() {
   };
 
   return (
-    <header className="fixed top-200 left-0 w-full bg-black text-white p-2 flex justify-between items-center z-50">
+    <header className="header-custom">
       <form onSubmit={handleSearchSubmit} className="inline relative">
         <input
           type="text"

@@ -6,6 +6,24 @@
 
 .brand-header {
   font-family: "Didot", serif;
+  padding-bottom: 20px;
+}
+
+.header-custom {
+  position: fixed;
+  top: 175px; /* Adjust if necessary */
+  left: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
 }
 
 .header-button {
@@ -14,7 +32,7 @@
 }
 
 .content {
-  margin-top: 140px;
+  margin-top: 200px;
   padding-top: 50px;
 }
 
