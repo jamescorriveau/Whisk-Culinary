@@ -22,8 +22,9 @@ function ShoppingCart() {
   };
 
   return (
-    <div>
-      <h2>Your Shopping Bag</h2>
+    <div style={{ paddingTop: "20px" }}>
+      {" "}
+      {/* Add padding here */}
       {cart.length > 0 ? (
         <ul>
           {cart.map((item, index) => (
@@ -38,7 +39,7 @@ function ShoppingCart() {
               <ProductImageComponent
                 imageUrl={item.image}
                 altText={item.name}
-                imageSizeClass="w-32 h-32" // Adjust the size as needed
+                imageSizeClass="w-32 h-32"
               />
               <div style={{ marginLeft: "10px" }}>
                 {item.name} - Quantity: {item.quantity}

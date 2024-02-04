@@ -32,7 +32,10 @@ function ProductSearch() {
       {error ? (
         <p>{error}</p>
       ) : (
-        <div className="product-grid grid grid-cols-4 gap-4">
+        <div
+          className="product-grid grid grid-cols-3 gap-12 mx-auto"
+          style={{ maxWidth: "800px" }}
+        >
           {filteredProducts.length === 0 ? (
             <p>No products found.</p>
           ) : (
@@ -41,13 +44,14 @@ function ProductSearch() {
                 <ProductImageComponent
                   imageUrl={product.image}
                   altText={product.name}
+                  style={{ maxWidth: "100px", height: "auto" }}
                 />
-                <h2 className="text-center">{product.name}</h2>
-                <p>Price: ${product.price}</p>
+                <h2 className="text-center text-sm">{product.name}</h2>
+                <p className="text-xs">Price: ${product.price}</p>
                 <div className="flex justify-center items-center">
                   <button
                     onClick={() => addToCart(product, 1)}
-                    className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md"
+                    className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
                   >
                     Add to Bag
                   </button>
