@@ -47,7 +47,7 @@ function ProductSearch() {
                 <div className="flex justify-center items-center">
                   <button
                     onClick={() => addToCart(product, 1)}
-                    className="w-full px-2 py-1 bg-black dark-gold-text rounded-md"
+                    className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md"
                   >
                     Add to Bag
                   </button>
