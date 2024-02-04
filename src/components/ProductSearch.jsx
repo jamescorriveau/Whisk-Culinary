@@ -32,7 +32,7 @@ function ProductSearch() {
       {error ? (
         <p>{error}</p>
       ) : (
-        <div className="product-grid">
+        <div className="product-grid grid grid-cols-4 gap-4">
           {filteredProducts.length === 0 ? (
             <p>No products found.</p>
           ) : (
@@ -44,9 +44,15 @@ function ProductSearch() {
                   altText={product.name}
                 />
                 <p>Price: ${product.price}</p>
-                <button onClick={() => addToCart(product, 1)}>
-                  Add to Shopping Bag
-                </button>
+                <div className="flex justify-center items-center">
+                  {" "}
+                  <button
+                    onClick={() => addToCart(product, 1)}
+                    className="w-1/2 px-4 py-2 bg-black dark-gold-text rounded-md"
+                  >
+                    Add Bag
+                  </button>
+                </div>
               </div>
             ))
           )}
