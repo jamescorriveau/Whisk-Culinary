@@ -3,13 +3,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import globalKnivesImage from "../images/global-knives-header-banner-1564754806.jpeg";
-import kitchenAidImage from "../images/kitchenaid-brand-header-banner-1564126621.webp";
-import staubMockupImage from "../images/staubmockupbanner1.1.jpeg";
+import kitchenAidImage from "../images/banner-image-kitchen-aid.jpeg";
+import staubMockupImage from "../images/misono_single.webp";
+import vitaMixImage from "../images/vita-blenders-banner-center-captioned-desktop.avif";
 import "../App.css";
 
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [globalKnivesImage, kitchenAidImage, staubMockupImage];
+  const images = [
+    globalKnivesImage,
+    kitchenAidImage,
+    staubMockupImage,
+    vitaMixImage,
+  ];
   const imageRef = useRef(null);
 
   useEffect(() => {
@@ -38,3 +44,5 @@ function Home() {
 }
 
 export default Home;
+
+// src / images / vita - blenders - banner - center - captioned - desktop.avif;

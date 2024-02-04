@@ -38,19 +38,18 @@ function ProductSearch() {
           ) : (
             filteredProducts.map((product) => (
               <div key={product.id} className="product-item">
-                <h2>{product.name}</h2>
                 <ProductImageComponent
                   imageUrl={product.image}
                   altText={product.name}
                 />
+                <h2 className="text-center">{product.name}</h2>
                 <p>Price: ${product.price}</p>
                 <div className="flex justify-center items-center">
-                  {" "}
                   <button
                     onClick={() => addToCart(product, 1)}
-                    className="w-1/2 px-4 py-2 bg-black dark-gold-text rounded-md"
+                    className="w-full px-2 py-1 bg-black dark-gold-text rounded-md"
                   >
-                    Add Bag
+                    Add to Bag
                   </button>
                 </div>
               </div>

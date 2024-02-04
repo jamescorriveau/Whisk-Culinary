@@ -30,9 +30,12 @@
 }
 
 .product-item {
-  border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none !important;
 }
 
 .dropdown-menu {
