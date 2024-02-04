@@ -56,3 +56,13 @@
   max-height: 200px;
   overflow-y: auto;
 }
+
+.image-slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-slider img {
+  width: 100%;
+  display: block;
+}
