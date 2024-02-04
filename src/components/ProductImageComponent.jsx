@@ -2,13 +2,15 @@
 
 import React from "react";
 
-function ProductImageComponent({ imageUrl, altText }) {
+function ProductImageComponent({ imageUrl, altText, imageSizeClass }) {
   return (
-    <div>
+    <div
+      className={`flex justify-center items-center h-full ${imageSizeClass}`}
+    >
       <img
         src={imageUrl}
         alt={altText}
-        style={{ width: "100px", height: "100px" }}
+        className="max-w-full max-h-full object-contain"
       />
     </div>
   );

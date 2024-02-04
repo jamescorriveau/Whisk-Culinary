@@ -23,7 +23,7 @@ function ShoppingCart() {
 
   return (
     <div>
-      <h2></h2>
+      <h2>Your Shopping Bag</h2>
       {cart.length > 0 ? (
         <ul>
           {cart.map((item, index) => (
@@ -38,6 +38,7 @@ function ShoppingCart() {
               <ProductImageComponent
                 imageUrl={item.image}
                 altText={item.name}
+                imageSizeClass="w-32 h-32" // Adjust the size as needed
               />
               <div style={{ marginLeft: "10px" }}>
                 {item.name} - Quantity: {item.quantity}

@@ -15,14 +15,11 @@
 
 .content {
   margin-top: 140px;
+  padding-top: 50px;
 }
 
 .dark-gold-text {
   color: #d5b500;
-}
-
-.content {
-  padding-top: 140px;
 }
 
 .product-grid {
@@ -67,4 +64,22 @@
   width: 100%;
   height: 500px;
   display: block;
+}
+
+.product-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-name {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  margin-top: 10px;
 }
