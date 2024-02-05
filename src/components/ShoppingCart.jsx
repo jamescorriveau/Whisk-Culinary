@@ -14,11 +14,16 @@ function ShoppingCart() {
   };
 
   return (
-    <div className="pt-5">
+    <div className="pt-5 px-4">
       {cart.length > 0 ? (
         <ul>
           {cart.map((item, index) => (
-            <li key={index} className="flex items-center mb-2.5">
+            <li
+              key={index}
+              className={`flex items-center mb-2.5 py-2 ${
+                index !== cart.length - 1 ? "border-b border-gray-300" : ""
+              }`}
+            >
               <ProductImageComponent
                 imageUrl={item.image}
                 altText={item.name}
@@ -31,7 +36,7 @@ function ShoppingCart() {
                     <strong>Price:</strong> ${item.price}
                   </div>
                   <div>
-                    <div className="inline-flex items-center bg-dark-gold text-white px-3 py-1.5 rounded text-sm cursor-pointer mr-2">
+                    <div className="inline-flex items-center bg-black text-dark-gold px-3 py-1.5 rounded text-sm cursor-pointer mr-2">
                       <span>Qty:</span>
                       <select
                         value={item.quantity}
@@ -41,7 +46,7 @@ function ShoppingCart() {
                             parseInt(e.target.value)
                           )
                         }
-                        className="bg-transparent text-white ml-1 focus:outline-none appearance-none cursor-pointer"
+                        className="bg-transparent text-dark-gold ml-1 focus:outline-none appearance-none cursor-pointer"
                       >
                         {[...Array(10).keys()].map((num) => (
                           <option key={num + 1} value={num + 1}>
@@ -64,6 +69,15 @@ function ShoppingCart() {
         </ul>
       ) : (
         <p>Your Shopping Bag is empty.</p>
+      )}
+
+      {/* Checkout Button */}
+      {cart.length > 0 && (
+        <div className="flex justify-end mt-4">
+          <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer mb-4">
+            Checkout
+          </button>
+        </div>
       )}
     </div>
   );
