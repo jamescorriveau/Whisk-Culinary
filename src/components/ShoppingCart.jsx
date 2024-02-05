@@ -20,9 +20,7 @@ function ShoppingCart() {
           {cart.map((item, index) => (
             <li
               key={index}
-              className={`flex items-center mb-2.5 py-2 ${
-                index !== cart.length - 1 ? "border-b border-gray-300" : ""
-              }`}
+              className={`flex items-center mb-2.5 py-2 border-b border-gray-300`}
             >
               <ProductImageComponent
                 imageUrl={item.image}
@@ -70,11 +68,10 @@ function ShoppingCart() {
       ) : (
         <p>Your Shopping Bag is empty.</p>
       )}
-
-      {/* Checkout Button */}
       {cart.length > 0 && (
-        <div className="flex justify-end mt-4">
-          <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer mb-4">
+        <div className="flex justify-end mt-2.5 mb-4">
+          {" "}
+          <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer">
             Checkout
           </button>
         </div>
