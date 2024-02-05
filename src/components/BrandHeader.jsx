@@ -1,17 +1,21 @@
 // BrandHeader.jsx
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 function BrandHeader() {
   return (
     <div className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50">
       <div className="flex justify-between items-center w-full px-5">
         <div className="flex items-center">
-          <img
-            src="/Whisk-logo.png"
-            alt="Whisk Logo"
-            style={{ paddingRight: "40px", width: "215px" }}
-          />
+          <Link to="/">
+            {" "}
+            <img
+              src="/Whisk-logo.png"
+              alt="Whisk Logo"
+              style={{ paddingRight: "40px", width: "215px" }}
+            />
+          </Link>
         </div>
         <div className="flex-1 text-center">
           <h1
@@ -37,7 +41,7 @@ function BrandHeader() {
             />
           </a>
           <a
-            href="https://www.kitchenaid.com/pinch-of-help.html"
+            href="https://consumerportal.servicebench.com/troubleshoot?token=ZHU6Y29uc3VtZXJQb3J0YWxQcm9kdWN0RGVzY3JpcHRpb247c2s6S0E7Y246V0hJUkxQT09MO3NhOjI3&cparam="
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -52,4 +56,5 @@ function BrandHeader() {
     </div>
   );
 }
+
 export default BrandHeader;

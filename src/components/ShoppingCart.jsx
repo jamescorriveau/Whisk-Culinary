@@ -71,8 +71,8 @@ function ShoppingCart() {
       {cart.length > 0 && (
         <div className="flex justify-end mt-2.5 mb-4">
           {" "}
-          <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer">
-            Checkout
+          <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer mt-4">
+            Checkout Checkout
           </button>
         </div>
       )}
