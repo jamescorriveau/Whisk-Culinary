@@ -44,5 +44,3 @@ function Home() {
 }
 
 export default Home;
-
-// src / images / vita - blenders - banner - center - captioned - desktop.avif;

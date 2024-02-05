@@ -24,35 +24,48 @@ function UserProfile() {
     setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
   };
 
-  const submitFormData = async (url, formData) => {
+  const submitLogin = async () => {
     try {
-      const response = await fetch(url, {
+      const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(loginForm),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Response success:", data);
+        console.log("Login success:", data);
       } else {
-        console.error("Server error:", data);
+        console.error("Login error:", data);
       }
     } catch (error) {
       console.error("Network error:", error);
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formName = event.target.name;
-    const formData = formName === "loginForm" ? loginForm : signupForm;
-    const url = formName === "loginForm" ? "/api/login" : "/api/register";
+  const submitSignup = async () => {
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signupForm),
+      });
 
-    submitFormData(url, formData);
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Signup success:", data);
+      } else {
+        console.error("Signup error:", data);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
   };
 
   return (
@@ -60,8 +73,10 @@ function UserProfile() {
       <div className="w-1/2">
         <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
         <form
-          name="loginForm"
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitLogin();
+          }}
           className="flex flex-col space-y-4 items-center"
         >
           <div className="w-full">
@@ -95,8 +110,10 @@ function UserProfile() {
       <div className="w-1/2">
         <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
         <form
-          name="signupForm"
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitSignup();
+          }}
           className="flex flex-col space-y-4 items-center"
         >
           <div className="w-full">
