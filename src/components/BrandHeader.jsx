@@ -25,16 +25,28 @@ function BrandHeader() {
           </p>
         </div>
         <div className="flex items-center">
-          <img
-            src="/Global-logo.png"
-            alt="Global Logo"
-            style={{ paddingRight: "40px" }}
-          />
-          <img
-            src="/KitchenAid-logo.png"
-            alt="KitchenAid Logo"
-            style={{ paddingRight: "5px" }}
-          />
+          <a
+            href="https://www.globalcutleryusa.com/knife-care"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/Global-logo.png"
+              alt="Global Logo"
+              style={{ paddingRight: "40px" }}
+            />
+          </a>
+          <a
+            href="https://www.kitchenaid.com/pinch-of-help.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/KitchenAid-logo.png"
+              alt="KitchenAid Logo"
+              style={{ paddingRight: "5px" }}
+            />
+          </a>
         </div>
       </div>
     </div>
