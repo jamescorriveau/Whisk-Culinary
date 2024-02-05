@@ -32,20 +32,19 @@ def load_user(user_id):
 @app.route('/api/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
         user = User.query.filter_by(email=email).first()
 
-        if user:
-            if bcrypt.check_password_hash(user.password, password):
-                login_user(user)
-                return redirect(url_for('profile'))
-            else:
-                return jsonify({"error": "Invalid password"}), 401
+        if user and bcrypt.check_password_hash(user.password, password):
+            login_user(user)
+            return jsonify({"message": "Login successful"}), 200
         else:
-            return jsonify({"error": "User not found"}), 404
+            return jsonify({"error": "Invalid email or password"}), 401
 
-    return jsonify({"error": "Invalid request method"}), 400 
+    return jsonify({"error": "Invalid request method"}), 400
+
 
 @app.route('/api/logout')
 def logout():
