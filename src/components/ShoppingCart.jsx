@@ -23,8 +23,6 @@ function ShoppingCart() {
 
   return (
     <div style={{ paddingTop: "20px" }}>
-      {" "}
-      {/* Add padding here */}
       {cart.length > 0 ? (
         <ul>
           {cart.map((item, index) => (
@@ -42,7 +40,8 @@ function ShoppingCart() {
                 imageSizeClass="w-32 h-32"
               />
               <div style={{ marginLeft: "10px" }}>
-                {item.name} - Quantity: {item.quantity}
+                <strong>{item.name}</strong> - Quantity: {item.quantity} <br />
+                <strong></strong> ${item.price}
                 <div>
                   <button onClick={() => incrementQuantity(item.id)}>+</button>
                   <button onClick={() => decrementQuantity(item.id)}>-</button>
