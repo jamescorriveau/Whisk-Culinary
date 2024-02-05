@@ -6,10 +6,12 @@ import globalKnivesImage from "../banner_images/global-knives-header-banner-1564
 import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
 import staubMockupImage from "../banner_images/misono_single.webp";
 import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
+import productData from "../../server/db.json";
 import "../App.css";
 
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [products, setProducts] = useState([]);
   const images = [
     globalKnivesImage,
     kitchenAidImage,
@@ -34,10 +36,27 @@ function Home() {
     );
   }, [currentImageIndex]);
 
+  useEffect(() => {
+    setProducts(productData.products.slice(2, 8));
+  }, []);
+
   return (
     <div>
       <div className="image-slider">
-        <img ref={imageRef} src={images[currentImageIndex]} alt="Product" />
+        <img
+          ref={imageRef}
+          src={images[currentImageIndex]}
+          alt="Featured Product"
+        />
+      </div>
+      <div className="product-container">
+        {products.map((product) => (
+          <div key={product.product_id} className="product-card">
+            <img src={product.image} alt={product.product} />
+            <h3>{product.product}</h3>
+            <p>${product.price}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
