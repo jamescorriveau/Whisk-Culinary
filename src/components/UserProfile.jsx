@@ -16,6 +16,8 @@ function UserProfile() {
     password: "",
   });
 
+  const [currentUser, setCurrentUser] = useState(null);
+
   const handleLoginChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
@@ -38,6 +40,7 @@ function UserProfile() {
 
       if (response.ok) {
         console.log("Login success:", data);
+        setCurrentUser(loginForm.email); // Set user as logged in with their email
       } else {
         console.error("Login error:", data);
       }
@@ -60,6 +63,7 @@ function UserProfile() {
 
       if (response.ok) {
         console.log("Signup success:", data);
+        setCurrentUser(signupForm.username); // Set new user as logged in with their username
       } else {
         console.error("Signup error:", data);
       }
@@ -70,6 +74,13 @@ function UserProfile() {
 
   return (
     <div className="flex flex-col items-center space-y-12 p-4">
+      <div className="dropdown">
+        {currentUser ? (
+          <p>Welcome back {currentUser}!</p>
+        ) : (
+          <p>Welcome to Whisk!</p>
+        )}
+      </div>
       <div className="w-1/2">
         <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
         <form

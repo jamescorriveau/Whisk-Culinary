@@ -39,11 +39,12 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return jsonify({"message": "Login successful"}), 200
+            return jsonify({"message": "Login successful", "username": user.username}), 200
         else:
             return jsonify({"error": "Invalid email or password"}), 401
 
     return jsonify({"error": "Invalid request method"}), 400
+
 
 
 @app.route('/api/logout')
@@ -65,7 +66,7 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"message": "User registered successfully"}), 201
+        return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -11,7 +11,7 @@
 
 .header-custom {
   position: fixed;
-  top: 175px; /* Adjust if necessary */
+  top: 175px;
   left: 0;
   width: 100%;
   background-color: black;
@@ -38,22 +38,6 @@
 
 .dark-gold-text {
   color: #d5b500;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 20px;
-  padding: 20px;
-}
-
-.product-item {
-  padding: 10px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: none !important;
 }
 
 .dropdown-menu {
@@ -103,4 +87,20 @@
   white-space: nowrap;
   max-width: 100%;
   margin-top: 10px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.product-item {
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none !important;
 }

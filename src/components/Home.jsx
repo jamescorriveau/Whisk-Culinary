@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
-import globalKnivesImage from "../images/global-knives-header-banner-1564754806.jpeg";
-import kitchenAidImage from "../images/banner-image-kitchen-aid.jpeg";
-import staubMockupImage from "../images/misono_single.webp";
-import vitaMixImage from "../images/vita-blenders-banner-center-captioned-desktop.avif";
+import globalKnivesImage from "../banner_images/global-knives-header-banner-1564754806.jpeg";
+import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
+import staubMockupImage from "../banner_images/misono_single.webp";
+import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
 import "../App.css";
 
 function Home() {

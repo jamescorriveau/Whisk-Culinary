@@ -47,7 +47,7 @@ function ProductSearch() {
                   style={{ maxWidth: "100px", height: "auto" }}
                 />
                 <h2 className="text-center text-sm">{product.name}</h2>
-                <p className="text-xs">Price: ${product.price}</p>
+                <p className="text-xs mb-4">${product.price}</p>
                 <div className="flex justify-center items-center">
                   <button
                     onClick={() => addToCart(product, 1)}
