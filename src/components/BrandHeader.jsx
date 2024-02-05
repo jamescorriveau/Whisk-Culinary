@@ -1,15 +1,25 @@
 // BrandHeader.jsx
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
 
 function BrandHeader() {
+  const headerRef = useRef();
+
+  useEffect(() => {
+    gsap.to(headerRef.current, { duration: 4, opacity: 1, ease: "power2.out" });
+  }, []);
+
   return (
-    <div className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50">
+    <div
+      ref={headerRef}
+      className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50"
+      style={{ opacity: 0 }}
+    >
       <div className="flex justify-between items-center w-full px-5">
         <div className="flex items-center">
           <Link to="/">
-            {" "}
             <img
               src="/Whisk-logo.png"
               alt="Whisk Logo"
