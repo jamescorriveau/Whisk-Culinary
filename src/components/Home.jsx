@@ -1,13 +1,15 @@
 // Home.jsx
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { gsap } from "gsap";
 import globalKnivesImage from "../banner_images/global-knives-header-banner-1564754806.jpeg";
 import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
 import staubMockupImage from "../banner_images/misono_single.webp";
 import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
 import productData from "../../server/db.json";
+import ProductImageComponent from "./ProductImageComponent";
 import "../App.css";
+import { CartContext } from "./CartContext";
 
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -19,6 +21,8 @@ function Home() {
     vitaMixImage,
   ];
   const imageRef = useRef(null);
+
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,12 +53,26 @@ function Home() {
           alt="Featured Product"
         />
       </div>
-      <div className="product-container">
+      <div
+        className="product-grid grid grid-cols-3 gap-12 mx-auto"
+        style={{ maxWidth: "800px" }}
+      >
         {products.map((product) => (
-          <div key={product.product_id} className="product-card">
-            <img src={product.image} alt={product.product} />
-            <h3>{product.product}</h3>
-            <p>${product.price}</p>
+          <div key={product.product_id} className="product-item">
+            <ProductImageComponent
+              imageUrl={product.image}
+              altText={product.product}
+            />
+            <h2 className="text-center text-sm mb-2">{product.product}</h2>
+            <p className="text-xs mb-4 font-bold">${product.price}</p>
+            <div className="flex justify-center items-center">
+              <button
+                onClick={() => addToCart(product, 1)}
+                className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
+              >
+                Add to Bag
+              </button>
+            </div>
           </div>
         ))}
       </div>
