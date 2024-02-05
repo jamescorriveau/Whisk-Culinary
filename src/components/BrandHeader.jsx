@@ -4,13 +4,13 @@ import React from "react";
 
 function BrandHeader() {
   return (
-    <div className="brand-header-container bg-white text-black pt-7 pb-7 px-4 fixed top-0 left-0 w-full z-50">
+    <div className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50">
       <div className="flex justify-between items-center w-full px-5">
         <div className="flex items-center">
           <img
             src="/Whisk-logo.png"
             alt="Whisk Logo"
-            style={{ paddingRight: "30px" }}
+            style={{ paddingRight: "40px", width: "215px" }}
           />
         </div>
         <div className="flex-1 text-center">
@@ -28,9 +28,13 @@ function BrandHeader() {
           <img
             src="/Global-logo.png"
             alt="Global Logo"
-            style={{ paddingRight: "10px" }}
+            style={{ paddingRight: "40px" }}
           />
-          <img src="/KitchenAid-logo.png" alt="KitchenAid Logo" />
+          <img
+            src="/KitchenAid-logo.png"
+            alt="KitchenAid Logo"
+            style={{ paddingRight: "5px" }}
+          />
         </div>
       </div>
     </div>
