@@ -43,7 +43,7 @@ function Header() {
           placeholder="Search..."
           value={localSearchQuery}
           onChange={handleSearchChange}
-          className="py-2 pl-10 pr-2 text-black outline-none"
+          className="py-2 pl-10 pr-2 text-black outline-none ml-auto" // Added ml-auto to push to the right
           style={{ width: "350px" }}
         />
         <svg

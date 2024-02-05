@@ -63,7 +63,7 @@ function UserProfile() {
 
       if (response.ok) {
         console.log("Signup success:", data);
-        setCurrentUser(signupForm.username); // Set new user as logged in with their username
+        setCurrentUser(signupForm.username);
       } else {
         console.error("Signup error:", data);
       }
