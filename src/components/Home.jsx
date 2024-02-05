@@ -67,7 +67,17 @@ function Home() {
             <p className="text-xs mb-4 font-bold">${product.price}</p>
             <div className="flex justify-center items-center">
               <button
-                onClick={() => addToCart(product, 1)}
+                onClick={() =>
+                  addToCart(
+                    {
+                      id: product.product_id,
+                      name: product.product,
+                      image: product.image,
+                      price: product.price,
+                    },
+                    1
+                  )
+                }
                 className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
               >
                 Add to Bag
