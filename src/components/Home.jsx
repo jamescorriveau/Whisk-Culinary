@@ -22,7 +22,7 @@ function Home() {
   ];
   const imageRef = useRef(null);
 
-  const { addToCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,6 +43,10 @@ function Home() {
   useEffect(() => {
     setProducts(productData.products.slice(2, 8));
   }, []);
+
+  const isProductInCart = (productId) => {
+    return cart.some((item) => item.id === productId);
+  };
 
   return (
     <div>
@@ -66,22 +70,31 @@ function Home() {
             <h2 className="text-center text-sm mb-2">{product.product}</h2>
             <p className="text-xs mb-4 font-bold">${product.price}</p>
             <div className="flex justify-center items-center">
-              <button
-                onClick={() =>
-                  addToCart(
-                    {
-                      id: product.product_id,
-                      name: product.product,
-                      image: product.image,
-                      price: product.price,
-                    },
-                    1
-                  )
-                }
-                className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
-              >
-                Add to Bag
-              </button>
+              {!isProductInCart(product.product_id) ? (
+                <button
+                  onClick={() =>
+                    addToCart(
+                      {
+                        id: product.product_id,
+                        name: product.product,
+                        image: product.image,
+                        price: product.price,
+                      },
+                      1
+                    )
+                  }
+                  className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
+                >
+                  Add to Bag
+                </button>
+              ) : (
+                <button
+                  onClick={() => removeFromCart(product.product_id)}
+                  className="w-1/2 px-2 py-1 bg-red-500 text-white rounded-md text-xs"
+                >
+                  Remove
+                </button>
+              )}
             </div>
           </div>
         ))}

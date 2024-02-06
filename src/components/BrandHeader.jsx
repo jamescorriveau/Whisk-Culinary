@@ -8,7 +8,7 @@ function BrandHeader() {
   const headerRef = useRef();
 
   useEffect(() => {
-    gsap.to(headerRef.current, { duration: 4, opacity: 1, ease: "power2.out" });
+    gsap.to(headerRef.current, { duration: 3, opacity: 1, ease: "power2.out" });
   }, []);
 
   return (
@@ -18,7 +18,8 @@ function BrandHeader() {
       style={{ opacity: 0 }}
     >
       <div className="flex justify-between items-center w-full px-5">
-        <div className="flex items-center">
+        <div className="flex items-center" style={{ marginLeft: "100px" }}>
+          {" "}
           <Link to="/">
             <img
               src="/Whisk-logo.png"
@@ -58,7 +59,7 @@ function BrandHeader() {
             <img
               src="/KitchenAid-logo.png"
               alt="KitchenAid Logo"
-              style={{ paddingRight: "5px" }}
+              style={{ paddingRight: "100px" }}
             />
           </a>
         </div>

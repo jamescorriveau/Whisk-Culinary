@@ -13,6 +13,10 @@ function ShoppingCart() {
     addToCart(product, quantityDifference);
   };
 
+  const totalPrice = cart.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
+
   return (
     <div className="pt-5 px-4">
       {cart.length > 0 ? (
@@ -20,7 +24,7 @@ function ShoppingCart() {
           {cart.map((item, index) => (
             <li
               key={index}
-              className={`flex items-center mb-2.5 py-2 border-b border-gray-300`}
+              className="flex items-center mb-2.5 py-2 border-b border-gray-300"
             >
               <ProductImageComponent
                 imageUrl={item.image}
@@ -70,10 +74,14 @@ function ShoppingCart() {
       )}
       {cart.length > 0 && (
         <div className="flex justify-end mt-2.5 mb-4">
-          {" "}
-          <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer mt-4">
-            Checkout
-          </button>
+          <div className="flex items-center">
+            <div className="mr-4">
+              <strong>Total: ${totalPrice.toFixed(2)}</strong>
+            </div>
+            <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer">
+              Checkout
+            </button>
+          </div>
         </div>
       )}
     </div>

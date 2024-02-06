@@ -11,7 +11,7 @@ function ProductSearch() {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
 
-  const { addToCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   useEffect(() => {
     if (searchQuery) {
@@ -26,6 +26,10 @@ function ProductSearch() {
       setFilteredProducts([]);
     }
   }, [searchQuery]);
+
+  const isProductInCart = (productId) => {
+    return cart.some((item) => item.id === productId);
+  };
 
   return (
     <div>
@@ -45,15 +49,24 @@ function ProductSearch() {
                   imageUrl={product.image}
                   altText={product.name}
                 />
-                <h2 className="text-center text-sm mb-2">{product.name}</h2>{" "}
+                <h2 className="text-center text-sm mb-2">{product.name}</h2>
                 <p className="text-xs mb-4 font-bold">${product.price}</p>
                 <div className="flex justify-center items-center">
-                  <button
-                    onClick={() => addToCart(product, 1)}
-                    className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
-                  >
-                    Add to Bag
-                  </button>
+                  {!isProductInCart(product.id) ? (
+                    <button
+                      onClick={() => addToCart(product, 1)}
+                      className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
+                    >
+                      Add to Bag
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => removeFromCart(product.id)}
+                      className="w-1/2 px-2 py-1 bg-red-500 text-white rounded-md text-xs"
+                    >
+                      Remove
+                    </button>
+                  )}
                 </div>
               </div>
             ))
