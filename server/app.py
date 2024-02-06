@@ -39,12 +39,12 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
+            print(f"Login successful for user with email: {email}")
             return jsonify({"message": "Login successful", "username": user.username}), 200
         else:
             return jsonify({"error": "Invalid email or password"}), 401
 
     return jsonify({"error": "Invalid request method"}), 400
-
 
 
 @app.route('/api/logout')

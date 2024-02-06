@@ -7,7 +7,6 @@ function UserProfile() {
     email: "",
     password: "",
   });
-
   const [signupForm, setSignupForm] = useState({
     username: "",
     first_name: "",
@@ -15,8 +14,9 @@ function UserProfile() {
     email: "",
     password: "",
   });
-
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const handleLoginChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -26,7 +26,7 @@ function UserProfile() {
     setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
   };
 
-  const submitLogin = async () => {
+  const handleLogin = async () => {
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -41,11 +41,28 @@ function UserProfile() {
       if (response.ok) {
         console.log("Login success:", data);
         setCurrentUser(loginForm.email); // Set user as logged in with their email
+        setIsLoggedIn(true); // Set isLoggedIn state
+        setLoginFailed(false);
       } else {
         console.error("Login error:", data);
+        setLoginFailed(true);
       }
     } catch (error) {
       console.error("Network error:", error);
+      setLoginFailed(true);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/api/logout", { method: "DELETE" });
+
+      if (response.ok) {
+        setCurrentUser(null); // Clear current user
+        setIsLoggedIn(false); // Set isLoggedIn state
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
     }
   };
 
@@ -59,13 +76,11 @@ function UserProfile() {
         body: JSON.stringify(signupForm),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
-        console.log("Signup success:", data);
-        setCurrentUser(signupForm.username);
+        console.log("Signup success");
+        handleLogin(); // Auto-login after signup
       } else {
-        console.error("Signup error:", data);
+        console.error("Signup error");
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -75,8 +90,11 @@ function UserProfile() {
   return (
     <div className="flex flex-col items-center space-y-12 p-4">
       <div className="dropdown">
-        {currentUser ? (
-          <p>Welcome back {currentUser}!</p>
+        {isLoggedIn ? (
+          <div>
+            <p>Welcome back {currentUser}!</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         ) : (
           <p>Welcome to Whisk!</p>
         )}
@@ -86,30 +104,26 @@ function UserProfile() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            submitLogin();
+            handleLogin();
           }}
           className="flex flex-col space-y-4 items-center"
         >
-          <div className="w-full">
-            <input
-              type="email"
-              name="email"
-              value={loginForm.email}
-              onChange={handleLoginChange}
-              placeholder="Email"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
-          <div className="w-full">
-            <input
-              type="password"
-              name="password"
-              value={loginForm.password}
-              onChange={handleLoginChange}
-              placeholder="Password"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
+          <input
+            type="email"
+            name="email"
+            value={loginForm.email}
+            onChange={handleLoginChange}
+            placeholder="Email"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
+          <input
+            type="password"
+            name="password"
+            value={loginForm.password}
+            onChange={handleLoginChange}
+            placeholder="Password"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
           <button
             type="submit"
             className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
@@ -127,56 +141,46 @@ function UserProfile() {
           }}
           className="flex flex-col space-y-4 items-center"
         >
-          <div className="w-full">
-            <input
-              type="text"
-              name="username"
-              value={signupForm.username}
-              onChange={handleSignupChange}
-              placeholder="Username"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
-          <div className="w-full">
-            <input
-              type="text"
-              name="first_name"
-              value={signupForm.first_name}
-              onChange={handleSignupChange}
-              placeholder="First Name"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
-          <div className="w-full">
-            <input
-              type="text"
-              name="last_name"
-              value={signupForm.last_name}
-              onChange={handleSignupChange}
-              placeholder="Last Name"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
-          <div className="w-full">
-            <input
-              type="email"
-              name="email"
-              value={signupForm.email}
-              onChange={handleSignupChange}
-              placeholder="Email"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
-          <div className="w-full">
-            <input
-              type="password"
-              name="password"
-              value={signupForm.password}
-              onChange={handleSignupChange}
-              placeholder="Password"
-              className="w-full p-2 border border-gray-300 rounded-md text-black"
-            />
-          </div>
+          <input
+            type="text"
+            name="username"
+            value={signupForm.username}
+            onChange={handleSignupChange}
+            placeholder="Username"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
+          <input
+            type="text"
+            name="first_name"
+            value={signupForm.first_name}
+            onChange={handleSignupChange}
+            placeholder="First Name"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
+          <input
+            type="text"
+            name="last_name"
+            value={signupForm.last_name}
+            onChange={handleSignupChange}
+            placeholder="Last Name"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
+          <input
+            type="email"
+            name="email"
+            value={signupForm.email}
+            onChange={handleSignupChange}
+            placeholder="Email"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
+          <input
+            type="password"
+            name="password"
+            value={signupForm.password}
+            onChange={handleSignupChange}
+            placeholder="Password"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
+          />
           <button
             type="submit"
             className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
