@@ -1,6 +1,6 @@
 // Header.jsx
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import UserProfile from "./UserProfile";
@@ -10,6 +10,7 @@ function Header() {
   const [localSearchQuery, setLocalSearchQuery] = useState("");
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleSearchChange = (e) => {
     setLocalSearchQuery(e.target.value);
@@ -22,18 +23,33 @@ function Header() {
       setLocalSearchQuery("");
     }
   };
-  const toggleLoginState = () => {
-    setIsLoggedIn(!isLoggedIn);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const totalItemsInCart = cart.reduce(
     (total, item) => total + item.quantity,
     0
   );
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
 
   return (
     <header className="header-custom">
@@ -43,7 +59,7 @@ function Header() {
           placeholder="Search..."
           value={localSearchQuery}
           onChange={handleSearchChange}
-          className="py-2 pl-10 pr-2 text-black outline-none ml-auto" // Added ml-auto to push to the right
+          className="py-2 pl-10 pr-2 text-black outline-none"
           style={{ width: "350px" }}
         />
         <svg
@@ -79,13 +95,6 @@ function Header() {
             />
           </svg>
         </button>
-        {/* Commented out Sign In/Out button */}
-        {/* <button
-          onClick={toggleLoginState}
-          className="header-button mx-2 dark-gold-text"
-        >
-          {isLoggedIn ? "Sign Out" : "Sign In"}
-        </button> */}
         <button
           onClick={toggleDropdown}
           className="header-button mx-2 dark-gold-text"
@@ -126,7 +135,7 @@ function Header() {
         </Link>
       </div>
       {showDropdown && (
-        <div className="dropdown-menu">
+        <div ref={dropdownRef} className="dropdown-menu">
           <UserProfile />
         </div>
       )}
