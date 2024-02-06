@@ -3,23 +3,19 @@
 import os
 from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
 from flask_cors import CORS
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from extensions import db, migrate, bcrypt
-from models import Product, User
+from models import Product, User, ShoppingCart
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'default-secret-key')
-
 
 db.init_app(app)
 migrate.init_app(app, db)
 bcrypt.init_app(app)
-
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
@@ -39,35 +35,22 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            print(f"Login successful for user with email: {email}")
             return jsonify({"message": "Login successful", "username": user.username}), 200
         else:
             return jsonify({"error": "Invalid email or password"}), 401
 
     return jsonify({"error": "Invalid request method"}), 400
 
-
-@app.route('/api/logout', methods=['GET'])
-@login_required
+@app.route('/api/logout')
 def logout():
     logout_user()
-    print("Logout successful")
-    return jsonify({"message": "Logged out successfully"}), 200
+    return redirect(url_for('index'))  
 
 @app.route('/api/register', methods=['POST'])
 def register():
     try:
-        data = request.get_json() 
-        required_fields = ['username', 'first_name', 'last_name', 'email', 'password']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({"error": f"Missing field: {field}"}), 400
-        existing_user = User.query.filter_by(email=data['email']).first()
-        if existing_user:
-            return jsonify({"error": "Email already exists"}), 400
-
+        data = request.json
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-
         new_user = User(
             username=data['username'],
             first_name=data['first_name'],
@@ -75,15 +58,11 @@ def register():
             password=hashed_password,
             email=data['email']
         )
-        
         db.session.add(new_user)
         db.session.commit()
-        
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
 
 @app.route('/api/products', methods=['GET'])
 @login_required
@@ -102,6 +81,43 @@ def search_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/cart/add', methods=['POST'])
+@login_required
+def add_to_cart():
+    user = current_user
+    data = request.get_json()
+    product_id = data.get('product_id')
+    quantity = data.get('quantity')
+
+    product = Product.query.get(product_id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+
+    existing_item = ShoppingCart.query.filter_by(user_id=user.id, product_id=product_id).first()
+    if existing_item:
+        existing_item.quantity += quantity
+    else:
+        new_item = ShoppingCart(user_id=user.id, product_id=product_id, quantity=quantity)
+        db.session.add(new_item)
+
+    db.session.commit()
+    return jsonify({"message": "Product added to cart"}), 200
+
+@app.route('/api/cart/remove', methods=['POST'])
+@login_required
+def remove_from_cart():
+    user = current_user
+    data = request.get_json()
+    product_id = data.get('product_id')
+
+    existing_item = ShoppingCart.query.filter_by(user_id=user.id, product_id=product_id).first()
+    if not existing_item:
+        return jsonify({"error": "Product not in cart"}), 404
+
+    db.session.delete(existing_item)
+    db.session.commit()
+    return jsonify({"message": "Product removed from cart"}), 200    
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
