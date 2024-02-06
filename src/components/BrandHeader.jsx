@@ -25,7 +25,10 @@ function BrandHeader() {
   }, []);
 
   return (
-    <div className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50">
+    <div
+      className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50"
+      style={{ overflow: "hidden" }}
+    >
       <div className="flex justify-between items-center w-full px-5">
         <div
           ref={leftSectionRef}
