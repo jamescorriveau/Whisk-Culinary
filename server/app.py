@@ -47,16 +47,27 @@ def login():
     return jsonify({"error": "Invalid request method"}), 400
 
 
-@app.route('/api/logout')
+@app.route('/api/logout', methods=['GET'])
+@login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))  
+    print("Logout successful")
+    return jsonify({"message": "Logged out successfully"}), 200
 
 @app.route('/api/register', methods=['POST'])
 def register():
     try:
-        data = request.json
+        data = request.get_json() 
+        required_fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error": f"Missing field: {field}"}), 400
+        existing_user = User.query.filter_by(email=data['email']).first()
+        if existing_user:
+            return jsonify({"error": "Email already exists"}), 400
+
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+
         new_user = User(
             username=data['username'],
             first_name=data['first_name'],
@@ -64,11 +75,14 @@ def register():
             password=hashed_password,
             email=data['email']
         )
+        
         db.session.add(new_user)
         db.session.commit()
+        
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 @app.route('/api/products', methods=['GET'])
