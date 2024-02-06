@@ -5,21 +5,33 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 
 function BrandHeader() {
-  const headerRef = useRef();
+  const leftSectionRef = useRef(null);
+  const centerSectionRef = useRef(null);
+  const rightSectionRef = useRef(null);
 
   useEffect(() => {
-    gsap.to(headerRef.current, { duration: 3, opacity: 1, ease: "power2.out" });
+    gsap.to(
+      [
+        leftSectionRef.current,
+        centerSectionRef.current,
+        rightSectionRef.current,
+      ],
+      {
+        duration: 3,
+        opacity: 1,
+        ease: "power2.out",
+      }
+    );
   }, []);
 
   return (
-    <div
-      ref={headerRef}
-      className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50"
-      style={{ opacity: 0 }}
-    >
+    <div className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50">
       <div className="flex justify-between items-center w-full px-5">
-        <div className="flex items-center" style={{ marginLeft: "100px" }}>
-          {" "}
+        <div
+          ref={leftSectionRef}
+          className="flex items-center"
+          style={{ marginLeft: "100px", opacity: 0 }}
+        >
           <Link to="/">
             <img
               src="/Whisk-logo.png"
@@ -28,7 +40,11 @@ function BrandHeader() {
             />
           </Link>
         </div>
-        <div className="flex-1 text-center">
+        <div
+          ref={centerSectionRef}
+          className="flex-1 text-center"
+          style={{ opacity: 0 }}
+        >
           <h1
             className="text-5xl font-bold mb-2"
             style={{ fontFamily: "Didot, serif" }}
@@ -39,7 +55,11 @@ function BrandHeader() {
             Precision Cooking at Home
           </p>
         </div>
-        <div className="flex items-center">
+        <div
+          ref={rightSectionRef}
+          className="flex items-center"
+          style={{ opacity: 0 }}
+        >
           <a
             href="https://www.globalcutleryusa.com/knife-care"
             target="_blank"
