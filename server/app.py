@@ -1,7 +1,7 @@
 # app.py
 
 import os
-from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from extensions import db, migrate, bcrypt
@@ -18,7 +18,6 @@ migrate.init_app(app, db)
 bcrypt.init_app(app)
 
 login_manager = LoginManager()
-login_manager.login_view = 'login'
 login_manager.init_app(app)
 
 @login_manager.user_loader
@@ -27,30 +26,32 @@ def load_user(user_id):
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
-        user = User.query.filter_by(email=email).first()
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    user = User.query.filter_by(email=email).first()
 
-        if user and bcrypt.check_password_hash(user.password, password):
-            login_user(user)
-            return jsonify({"message": "Login successful", "username": user.username}), 200
-        else:
-            return jsonify({"error": "Invalid email or password"}), 401
-
-    return jsonify({"error": "Invalid request method"}), 400
+    if user and bcrypt.check_password_hash(user.password, password):
+        login_user(user, remember=True)
+        return jsonify({"message": "Login successful", "username": user.username}), 200
+    else:
+        return jsonify({"error": "Invalid email or password"}), 401
 
 @app.route('/api/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))  
+    return jsonify({"message": "Logged out successfully"}), 200
 
 @app.route('/api/register', methods=['POST'])
 def register():
     try:
+        print("Register endpoint hit")  # Log when the endpoint is hit
         data = request.json
+        print(f"Received data: {data}")  # Log the received data
+
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+        print("Password hashed")  # Log after password is hashed
+
         new_user = User(
             username=data['username'],
             first_name=data['first_name'],
@@ -58,10 +59,16 @@ def register():
             password=hashed_password,
             email=data['email']
         )
+        print(f"Created new user object: {new_user}")  # Log the new user object
+
         db.session.add(new_user)
         db.session.commit()
+        print("New user added to database")  # Log after user is added to DB
+
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
+
     except Exception as e:
+        print(f"Error in register route: {e}")  # Log the exception
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/products', methods=['GET'])
@@ -81,7 +88,7 @@ def search_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+
 @app.route('/api/cart/add', methods=['POST'])
 @login_required
 def add_to_cart():
@@ -117,7 +124,7 @@ def remove_from_cart():
 
     db.session.delete(existing_item)
     db.session.commit()
-    return jsonify({"message": "Product removed from cart"}), 200    
+    return jsonify({"message": "Product removed from cart"}), 200
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)

@@ -1,12 +1,10 @@
 // UserProfile.jsx
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { CartContext } from "./CartContext";
 
 function UserProfile() {
-  const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [signupForm, setSignupForm] = useState({
     username: "",
     first_name: "",
@@ -15,8 +13,10 @@ function UserProfile() {
     password: "",
   });
   const [currentUser, setCurrentUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(CartContext);
+  const [hasAttemptedAuth, setHasAttemptedAuth] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false); // State to track if the user just signed up
 
   const handleLoginChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -26,22 +26,24 @@ function UserProfile() {
     setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setHasAttemptedAuth(true); // User has attempted to log in
     try {
       const response = await fetch("/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginForm),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login success:", data);
-        setCurrentUser(loginForm.email);
+        localStorage.setItem("isLoggedIn", "true");
+        setCurrentUser(data.username);
         setIsLoggedIn(true);
+        setIsNewUser(false); // Set isNewUser to false when existing user logs in
+        console.log(`Login successful: Welcome back ${data.username}`);
         setLoginFailed(false);
       } else {
         console.error("Login error:", data);
@@ -58,6 +60,7 @@ function UserProfile() {
       const response = await fetch("/api/logout", { method: "GET" });
 
       if (response.ok) {
+        localStorage.removeItem("isLoggedIn");
         setCurrentUser(null);
         setIsLoggedIn(false);
         console.log("Logout successful");
@@ -67,19 +70,51 @@ function UserProfile() {
     }
   };
 
-  const submitSignup = async () => {
+  const submitSignup = async (e) => {
+    e.preventDefault();
+    setHasAttemptedAuth(true); // User has attempted to sign up
     try {
       const response = await fetch("/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signupForm),
       });
 
       if (response.ok) {
-        console.log("Signup success");
-        handleLogin();
+        // Extracting the username from the response
+        const responseData = await response.json();
+        const { username } = responseData;
+
+        // Update the state to indicate new user and set current user
+        setIsNewUser(true);
+        setCurrentUser(username);
+
+        // Automatically login the user after successful signup
+        const loginResponse = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: signupForm.email,
+            password: signupForm.password,
+          }),
+        });
+
+        if (loginResponse.ok) {
+          // Update the state after successful login
+          localStorage.setItem("isLoggedIn", "true");
+          setCurrentUser(username);
+          setIsLoggedIn(true);
+          setIsNewUser(true); // Set isNewUser to true after successful signup
+          console.log(`Login successful: Welcome ${username}`);
+          setLoginFailed(false);
+        } else {
+          // Handle login failure
+          console.error("Login error after signup:", loginResponse);
+          setLoginFailed(true);
+        }
+      } else {
+        // Handle signup failure
+        console.error("Signup error:", response);
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -91,23 +126,29 @@ function UserProfile() {
       <div className="dropdown">
         {isLoggedIn ? (
           <div>
-            <p>Welcome back {currentUser}!</p>
+            <p style={{ color: "black", marginBottom: "20px" }}>
+              {isNewUser
+                ? `Welcome to Whisk, ${currentUser}!`
+                : `Welcome back, ${currentUser}!`}
+            </p>
             <button
               onClick={handleLogout}
               className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+              style={{ marginTop: "20px" }}
             >
               Logout
             </button>
           </div>
         ) : (
           <>
-            <p>Welcome to Whisk!</p>
+            {hasAttemptedAuth && (
+              <p style={{ color: "black", marginBottom: "20px" }}>
+                Welcome to Whisk!
+              </p>
+            )}
             <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleLogin();
-              }}
+              onSubmit={handleLogin}
               className="flex flex-col space-y-4 items-center"
             >
               <input
@@ -135,10 +176,7 @@ function UserProfile() {
             </form>
             <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                submitSignup();
-              }}
+              onSubmit={submitSignup}
               className="flex flex-col space-y-4 items-center"
             >
               <input
