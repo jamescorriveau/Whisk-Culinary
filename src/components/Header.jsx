@@ -56,7 +56,7 @@ function Header() {
       <form onSubmit={handleSearchSubmit} className="inline relative">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search Our Products..."
           value={localSearchQuery}
           onChange={handleSearchChange}
           className="py-2 pl-10 pr-2 text-black outline-none"

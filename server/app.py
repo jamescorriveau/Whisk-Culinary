@@ -22,8 +22,8 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
-
+    # Change here to address the LegacyAPIWarning
+    return db.session.get(User, int(user_id))
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -88,6 +88,19 @@ def search_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/cart', methods=['GET'])
+@login_required
+def get_cart():
+    user = current_user
+    try:
+        cart_items = ShoppingCart.query.filter_by(user_id=user.id).all()
+        cart_items_dict = [item.to_dict() for item in cart_items]  # Ensure this method exists
+        return jsonify(cart_items_dict)
+    except Exception as e:
+        print(f"Error fetching cart items: {e}")  # Log the error for debugging
+        return jsonify({"error": "Internal server error"}), 500
+   
 
 @app.route('/api/cart/add', methods=['POST'])
 @login_required
@@ -115,16 +128,24 @@ def add_to_cart():
 @login_required
 def remove_from_cart():
     user = current_user
-    data = request.get_json()
-    product_id = data.get('product_id')
+    try:
+        data = request.get_json()
+        product_id = data.get('product_id')  # Correctly parsing product_id
+        print(f"Attempting to remove product ID: {product_id} for user ID: {user.id}")  # Log received data
 
-    existing_item = ShoppingCart.query.filter_by(user_id=user.id, product_id=product_id).first()
-    if not existing_item:
-        return jsonify({"error": "Product not in cart"}), 404
-
-    db.session.delete(existing_item)
-    db.session.commit()
-    return jsonify({"message": "Product removed from cart"}), 200
+        existing_item = ShoppingCart.query.filter_by(user_id=user.id, product_id=product_id).first()
+        if existing_item:
+            print(f"Found item in cart: {existing_item}")  # Log if item is found
+            db.session.delete(existing_item)
+            db.session.commit()
+            return jsonify({"message": "Product removed from cart"}), 200
+        else:
+            print("Product not found in cart")  # Log if item is not found
+            return jsonify({"error": "Product not in cart"}), 404
+    except Exception as e:
+        print(f"Error removing item from cart: {e}")  # Log any exceptions
+        return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
+

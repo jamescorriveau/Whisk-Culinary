@@ -57,6 +57,15 @@ class ShoppingCart(db.Model):
     user = relationship("User", back_populates="shopping_cart")
     product = relationship("Product", back_populates="carts")
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "product_id": self.product_id,
+            "quantity": self.quantity,
+            "product": self.product.to_dict()
+        }
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
