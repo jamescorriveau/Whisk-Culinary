@@ -3,6 +3,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "./CartContext";
 import ProductImageComponent from "./ProductImageComponent";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
@@ -78,9 +79,28 @@ function ShoppingCart() {
             <div className="mr-4">
               <strong>Total: ${totalPrice.toFixed(2)}</strong>
             </div>
-            <button className="inline-flex items-center bg-black text-dark-gold px-4 py-2 rounded text-sm cursor-pointer">
-              Checkout
-            </button>
+            <PayPalButtons
+              style={{ layout: "horizontal" }}
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: totalPrice.toFixed(2),
+                      },
+                    },
+                  ],
+                });
+              }}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then((details) => {
+                  console.log(
+                    "Transaction completed by " + details.payer.name.given_name
+                  );
+                  // Additional logic after successful payment
+                });
+              }}
+            />
           </div>
         </div>
       )}
