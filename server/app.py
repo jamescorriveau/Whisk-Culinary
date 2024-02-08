@@ -45,12 +45,12 @@ def logout():
 @app.route('/api/register', methods=['POST'])
 def register():
     try:
-        print("Register endpoint hit")  # Log when the endpoint is hit
+        print("Register endpoint hit")  
         data = request.json
-        print(f"Received data: {data}")  # Log the received data
+        print(f"Received data: {data}")  
 
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-        print("Password hashed")  # Log after password is hashed
+        print("Password hashed")  
 
         new_user = User(
             username=data['username'],
@@ -59,16 +59,16 @@ def register():
             password=hashed_password,
             email=data['email']
         )
-        print(f"Created new user object: {new_user}")  # Log the new user object
+        print(f"Created new user object: {new_user}")  
 
         db.session.add(new_user)
         db.session.commit()
-        print("New user added to database")  # Log after user is added to DB
+        print("New user added to database")  
 
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
 
     except Exception as e:
-        print(f"Error in register route: {e}")  # Log the exception
+        print(f"Error in register route: {e}")  
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/products', methods=['GET'])

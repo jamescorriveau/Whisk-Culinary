@@ -97,7 +97,7 @@ function ShoppingCart() {
                   console.log(
                     "Transaction completed by " + details.payer.name.given_name
                   );
-                  // Additional logic after successful payment
+                  // add logic after successful payment
                 });
               }}
             />

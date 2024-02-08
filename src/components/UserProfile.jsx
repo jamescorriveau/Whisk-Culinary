@@ -113,7 +113,6 @@ function UserProfile() {
           setLoginFailed(true);
         }
       } else {
-        // Handle signup failure
         console.error("Signup error:", response);
       }
     } catch (error) {
