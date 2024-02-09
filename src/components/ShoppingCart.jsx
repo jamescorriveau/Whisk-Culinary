@@ -61,10 +61,12 @@ function ShoppingCart() {
                 imageSizeClass="w-32 h-32"
               />
               <div className="ml-2.5 flex-grow">
-                <strong>{item.name}</strong>
+                <strong>{item.name}</strong> {/* Product Name */}
+                <p>{item.description}</p> {/* Product Description */}
                 <div className="flex justify-between items-center mt-2">
                   <div>
-                    <strong>Price:</strong> ${item.price.toFixed(2)}
+                    <strong>Price:</strong> ${item.price.toFixed(2)}{" "}
+                    {/* Product Price */}
                   </div>
                   <div>
                     <button
@@ -84,31 +86,34 @@ function ShoppingCart() {
       )}
       {cartItems.length > 0 && (
         <div className="flex justify-end mt-2.5 mb-4">
-          <div className="flex items-center">
-            <div className="mr-4">
+          <div className="flex flex-col items-center">
+            <div className="mb-4">
               <strong>Total: ${totalPrice.toFixed(2)}</strong>
             </div>
-            {/* PayPal button */}
-            <PayPalButtons
-              fundingSource={FUNDING.PAYPAL}
-              style={{ layout: "horizontal" }}
-              createOrder={createOrder}
-              onApprove={onApprove}
-            />
-            {/* Pay Later button */}
-            <PayPalButtons
-              fundingSource={FUNDING.PAYLATER}
-              style={{ layout: "horizontal" }}
-              createOrder={createOrder}
-              onApprove={onApprove}
-            />
-            {/* Debit or Credit Card button */}
-            <PayPalButtons
-              fundingSource={FUNDING.CARD}
-              style={{ layout: "horizontal" }}
-              createOrder={createOrder}
-              onApprove={onApprove}
-            />
+            <div className="mb-2">
+              <PayPalButtons
+                fundingSource={FUNDING.PAYPAL}
+                style={{ layout: "vertical" }}
+                createOrder={createOrder}
+                onApprove={onApprove}
+              />
+            </div>
+            <div className="mb-2">
+              <PayPalButtons
+                fundingSource={FUNDING.PAYLATER}
+                style={{ layout: "vertical" }}
+                createOrder={createOrder}
+                onApprove={onApprove}
+              />
+            </div>
+            <div>
+              <PayPalButtons
+                fundingSource={FUNDING.CARD}
+                style={{ layout: "vertical" }}
+                createOrder={createOrder}
+                onApprove={onApprove}
+              />
+            </div>
           </div>
         </div>
       )}
