@@ -88,6 +88,7 @@ function Header() {
             stroke="currentColor"
             className="w-6 h-6"
           >
+            <title>Home</title>
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -107,6 +108,7 @@ function Header() {
             stroke="currentColor"
             className="w-6 h-6"
           >
+            <title>Profile</title>
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -124,6 +126,7 @@ function Header() {
               stroke="currentColor"
               className="w-6 h-6"
             >
+              <title>Shopping Bag</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
