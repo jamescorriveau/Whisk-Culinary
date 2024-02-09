@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
-import ProductImageComponent from "./ProductImageContext";
+import ProductImageContext from "./ProductImageContext";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
@@ -24,7 +24,6 @@ function ShoppingCart() {
 
   const clearCart = () => {
     setCart([]);
-    setCartItems([]);
   };
 
   return (
@@ -36,7 +35,7 @@ function ShoppingCart() {
               key={index}
               className="flex items-center mb-2.5 py-2 border-b border-gray-300"
             >
-              <ProductImageComponent
+              <ProductImageContext
                 imageUrl={item.image}
                 altText={item.name}
                 imageSizeClass="w-32 h-32"
@@ -86,9 +85,7 @@ function ShoppingCart() {
                 return actions.order.capture().then((details) => {
                   alert("Thank you for your purchase!");
                   clearCart();
-                  console.log(
-                    "Transaction completed by " + details.payer.name.given_name
-                  );
+                  setCartItems([]);
                 });
               }}
             />
