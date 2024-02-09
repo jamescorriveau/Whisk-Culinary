@@ -61,12 +61,11 @@ function ShoppingCart() {
                 imageSizeClass="w-32 h-32"
               />
               <div className="ml-2.5 flex-grow">
-                <strong>{item.name}</strong> {/* Product Name */}
-                <p>{item.description}</p> {/* Product Description */}
+                <strong>{item.name}</strong>
+                <p>{item.description}</p>
                 <div className="flex justify-between items-center mt-2">
                   <div>
                     <strong>Price:</strong> ${item.price.toFixed(2)}{" "}
-                    {/* Product Price */}
                   </div>
                   <div>
                     <button

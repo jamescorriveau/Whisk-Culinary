@@ -54,7 +54,7 @@ function UserProfile() {
         );
         setCurrentUser(data.username);
         setIsLoggedIn(true);
-        console.log(`User logged in: ${data.username}`); // Log user login
+        console.log(`User logged in: ${data.username}`);
         setIsNewUser(false);
         setLoginFailed(false);
       } else {
@@ -94,7 +94,7 @@ function UserProfile() {
         const responseData = await response.json();
         setIsNewUser(true);
         setCurrentUser(responseData.username);
-        console.log(`New user registered: ${responseData.username}`); // Log new user registration
+        console.log(`New user registered: ${responseData.username}`);
         handleLogin({ preventDefault: () => {}, target: loginForm });
       } else {
         console.error("Signup error:", response);
@@ -110,9 +110,7 @@ function UserProfile() {
         {isLoggedIn ? (
           <div>
             <p style={{ color: "black", marginBottom: "20px" }}>
-              {isNewUser
-                ? `Welcome to Whisk, ${currentUser}!`
-                : `Welcome back, ${currentUser}!`}
+              {isNewUser ? `Welcome to Whisk!` : `Welcome back!`}
             </p>
             <button
               onClick={handleLogout}

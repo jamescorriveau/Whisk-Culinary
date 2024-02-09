@@ -53,6 +53,20 @@ function Home() {
           alt="Featured Product"
         />
       </div>
+
+      {/* Tagline added here */}
+      <div
+        className="tagline"
+        style={{ textAlign: "center", margin: "20px 0" }}
+      >
+        <h2
+          className="text-3xl font-bold"
+          style={{ fontFamily: "Didot, serif" }}
+        >
+          Simplify Cooking with Easy-Pick Kitchen Tools
+        </h2>
+      </div>
+
       <div
         className="product-grid grid grid-cols-3 gap-12 mx-auto"
         style={{ maxWidth: "800px" }}
