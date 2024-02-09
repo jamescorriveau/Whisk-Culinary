@@ -2,17 +2,16 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
-import ProductImageComponent from "./ProductImageComponent";
+import ProductImageComponent from "./ProductImageContext";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
   const { cart, setCart, removeFromCart } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
 
-  // Fetch the detailed cart information
   useEffect(() => {
     setCartItems(cart);
-  }, [cart]); // React to changes in the cart
+  }, [cart]);
 
   const handleRemoveFromCart = (productId) => {
     removeFromCart(productId);
@@ -23,13 +22,11 @@ function ShoppingCart() {
     0
   );
 
-  // Function to clear the cart after successful payment
   const clearCart = () => {
     setCart([]);
     setCartItems([]);
   };
 
-  // Render the shopping cart
   return (
     <div className="pt-5 px-4">
       {cartItems.length > 0 ? (

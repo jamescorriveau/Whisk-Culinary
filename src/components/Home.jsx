@@ -7,9 +7,10 @@ import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
 import staubMockupImage from "../banner_images/misono_single.webp";
 import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
 import productData from "../../server/db.json";
-import ProductImageComponent from "./ProductImageComponent";
-import "../App.css";
+import ProductItem from "./ProductItem";
+import ProductImageContext from "./ProductImageContext";
 import { CartContext } from "./CartContext";
+import "../App.css";
 
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -28,7 +29,6 @@ function Home() {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 6000);
-
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -44,10 +44,6 @@ function Home() {
     setProducts(productData.products.slice(2, 8));
   }, []);
 
-  const isProductInCart = (productId) => {
-    return cart.some((item) => item.id === productId);
-  };
-
   return (
     <div>
       <div className="image-slider">
@@ -62,41 +58,7 @@ function Home() {
         style={{ maxWidth: "800px" }}
       >
         {products.map((product) => (
-          <div key={product.product_id} className="product-item">
-            <ProductImageComponent
-              imageUrl={product.image}
-              altText={product.product}
-            />
-            <h2 className="text-center text-sm mb-2">{product.product}</h2>
-            <p className="text-xs mb-4 font-bold">${product.price}</p>
-            <div className="flex justify-center items-center">
-              {!isProductInCart(product.product_id) ? (
-                <button
-                  onClick={() =>
-                    addToCart(
-                      {
-                        id: product.product_id,
-                        name: product.product,
-                        image: product.image,
-                        price: product.price,
-                      },
-                      1
-                    )
-                  }
-                  className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
-                >
-                  Add to Bag
-                </button>
-              ) : (
-                <button
-                  onClick={() => removeFromCart(product.product_id)}
-                  className="w-1/2 px-2 py-1 bg-red-500 text-white rounded-md text-xs"
-                >
-                  Remove
-                </button>
-              )}
-            </div>
-          </div>
+          <ProductItem key={product.product_id} product={product} />
         ))}
       </div>
     </div>

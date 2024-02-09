@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
-import ProductImageComponent from "./ProductImageComponent";
+import ProductImageComponent from "./ProductImageContext";
 
 function ProductSearch() {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -13,7 +13,6 @@ function ProductSearch() {
   const navigate = useNavigate();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
-  // State for autocomplete suggestions
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -51,14 +50,12 @@ function ProductSearch() {
     setSuggestions(matches);
   };
 
-  // Event handler for suggestion click
   const handleSuggestionClick = (product) => {
     setSearchTerm("");
     setSuggestions([]);
-    navigate(`/product/${product.id}`); // Navigate to the product details page
+    navigate(`/product/${product.id}`);
   };
 
-  // Event handler for keyboard navigation
   const handleKeyDown = (event) => {
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -115,7 +112,6 @@ function ProductSearch() {
           )}
         </div>
       )}
-      {/* Autocomplete suggestions */}
       <ul>
         {suggestions.map((product, index) => (
           <li
