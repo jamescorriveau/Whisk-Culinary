@@ -45,32 +45,31 @@ def logout():
 @app.route('/api/register', methods=['POST'])
 def register():
     try:
-        print("Register endpoint hit")  
         data = request.json
-        print(f"Received data: {data}")  
+        email = data.get('email')
+
+        # Check if email already exists
+        if User.query.filter_by(email=email).first():
+            return jsonify({"error": "Email already registered"}), 400
 
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-        print("Password hashed")  
 
         new_user = User(
             username=data['username'],
             first_name=data['first_name'],
             last_name=data['last_name'],
             password=hashed_password,
-            email=data['email']
+            email=email
         )
-        print(f"Created new user object: {new_user}")  
 
         db.session.add(new_user)
         db.session.commit()
-        print("New user added to database")  
 
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
 
     except Exception as e:
-        print(f"Error in register route: {e}")  
-        return jsonify({"error": str(e)}), 500
-
+        print(f"Error in register route: {e}")
+        return jsonify({"error": "An error occurred during registration"}), 500
 @app.route('/api/products', methods=['GET'])
 @login_required
 def get_products():
