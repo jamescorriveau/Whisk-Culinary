@@ -115,11 +115,11 @@
   background: white;
   border: 1px solid #ddd;
   border-top: none;
+  cursor: pointer;
 }
 
 .search-suggestions div {
   padding: 10px;
-  cursor: pointer;
 }
 
 .search-suggestions div:hover {
