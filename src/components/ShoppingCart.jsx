@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
 import ProductImageContext from "./ProductImageContext";
-import { PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
   const { cart, setCart, removeFromCart } = useContext(CartContext);
@@ -24,6 +24,26 @@ function ShoppingCart() {
 
   const clearCart = () => {
     setCart([]);
+  };
+
+  const createOrder = (data, actions) => {
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: totalPrice.toFixed(2),
+          },
+        },
+      ],
+    });
+  };
+
+  const onApprove = (data, actions) => {
+    return actions.order.capture().then((details) => {
+      alert("Thank you for your purchase!");
+      clearCart();
+      setCartItems([]);
+    });
   };
 
   return (
@@ -68,26 +88,26 @@ function ShoppingCart() {
             <div className="mr-4">
               <strong>Total: ${totalPrice.toFixed(2)}</strong>
             </div>
+            {/* PayPal button */}
             <PayPalButtons
+              fundingSource={FUNDING.PAYPAL}
               style={{ layout: "horizontal" }}
-              createOrder={(data, actions) => {
-                return actions.order.create({
-                  purchase_units: [
-                    {
-                      amount: {
-                        value: totalPrice.toFixed(2),
-                      },
-                    },
-                  ],
-                });
-              }}
-              onApprove={(data, actions) => {
-                return actions.order.capture().then((details) => {
-                  alert("Thank you for your purchase!");
-                  clearCart();
-                  setCartItems([]);
-                });
-              }}
+              createOrder={createOrder}
+              onApprove={onApprove}
+            />
+            {/* Pay Later button */}
+            <PayPalButtons
+              fundingSource={FUNDING.PAYLATER}
+              style={{ layout: "horizontal" }}
+              createOrder={createOrder}
+              onApprove={onApprove}
+            />
+            {/* Debit or Credit Card button */}
+            <PayPalButtons
+              fundingSource={FUNDING.CARD}
+              style={{ layout: "horizontal" }}
+              createOrder={createOrder}
+              onApprove={onApprove}
             />
           </div>
         </div>
