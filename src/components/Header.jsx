@@ -1,15 +1,15 @@
 // Header.jsx
 
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import UserProfile from "./UserProfile";
 
 function Header() {
-  const { isLoggedIn, setIsLoggedIn, cart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
-  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
   const handleSearchChange = (e) => {

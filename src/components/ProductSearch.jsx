@@ -1,7 +1,7 @@
 // ProductSearch.jsx
 
 import React, { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import ProductImageComponent from "./ProductImageComponent";
 
@@ -10,8 +10,13 @@ function ProductSearch() {
   const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
-
+  const navigate = useNavigate();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
+
+  // State for autocomplete suggestions
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   useEffect(() => {
     if (searchQuery) {
@@ -29,6 +34,43 @@ function ProductSearch() {
 
   const isProductInCart = (productId) => {
     return cart.some((item) => item.id === productId);
+  };
+
+  // Event handler for search input change
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+
+    let matches = [];
+    if (value.length > 0) {
+      // Filter products based on the search term
+      matches = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(value.toLowerCase())
+      );
+    }
+    setSuggestions(matches);
+  };
+
+  // Event handler for suggestion click
+  const handleSuggestionClick = (product) => {
+    setSearchTerm("");
+    setSuggestions([]);
+    navigate(`/product/${product.id}`); // Navigate to the product details page
+  };
+
+  // Event handler for keyboard navigation
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev < suggestions.length - 1 ? prev + 1 : prev
+      );
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+    } else if (event.key === "Enter" && highlightedIndex >= 0) {
+      handleSuggestionClick(suggestions[highlightedIndex]);
+    }
   };
 
   return (
@@ -73,6 +115,18 @@ function ProductSearch() {
           )}
         </div>
       )}
+      {/* Autocomplete suggestions */}
+      <ul>
+        {suggestions.map((product, index) => (
+          <li
+            key={product.id}
+            className={index === highlightedIndex ? "highlighted" : ""}
+            onClick={() => handleSuggestionClick(product)}
+          >
+            {product.name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
