@@ -22,7 +22,6 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    # Change here to address the LegacyAPIWarning
     return db.session.get(User, int(user_id))
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -94,10 +93,10 @@ def get_cart():
     user = current_user
     try:
         cart_items = ShoppingCart.query.filter_by(user_id=user.id).all()
-        cart_items_dict = [item.to_dict() for item in cart_items]  # Ensure this method exists
+        cart_items_dict = [item.to_dict() for item in cart_items]
         return jsonify(cart_items_dict)
     except Exception as e:
-        print(f"Error fetching cart items: {e}")  # Log the error for debugging
+        print(f"Error fetching cart items: {e}")
         return jsonify({"error": "Internal server error"}), 500
    
 
@@ -129,20 +128,20 @@ def remove_from_cart():
     user = current_user
     try:
         data = request.get_json()
-        product_id = data.get('product_id')  # Correctly parsing product_id
-        print(f"Attempting to remove product ID: {product_id} for user ID: {user.id}")  # Log received data
+        product_id = data.get('product_id')  
+        print(f"Attempting to remove product ID: {product_id} for user ID: {user.id}") 
 
         existing_item = ShoppingCart.query.filter_by(user_id=user.id, product_id=product_id).first()
         if existing_item:
-            print(f"Found item in cart: {existing_item}")  # Log if item is found
+            print(f"Found item in cart: {existing_item}")  
             db.session.delete(existing_item)
             db.session.commit()
             return jsonify({"message": "Product removed from cart"}), 200
         else:
-            print("Product not found in cart")  # Log if item is not found
+            print("Product not found in cart")  
             return jsonify({"error": "Product not in cart"}), 404
     except Exception as e:
-        print(f"Error removing item from cart: {e}")  # Log any exceptions
+        print(f"Error removing item from cart: {e}") 
         return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == '__main__':

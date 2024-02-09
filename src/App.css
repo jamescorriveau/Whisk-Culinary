@@ -105,3 +105,23 @@
   justify-content: space-between;
   border: none !important;
 }
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.search-suggestions div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-suggestions div:hover {
+  background-color: #f0f0f0;
+}
