@@ -13,18 +13,26 @@ function ShoppingCart() {
     setCartItems(cart);
   }, [cart]);
 
+  const handleQuantityChange = (productId, newQuantity) => {
+    const updatedCart = cartItems.map((item) =>
+      item.id === productId ? { ...item, quantity: newQuantity } : item
+    );
+    setCartItems(updatedCart);
+    // Update the global cart context if needed
+    setCart(updatedCart);
+  };
+
   const handleRemoveFromCart = (productId) => {
-    removeFromCart(productId);
+    const updatedCart = cartItems.filter((item) => item.id !== productId);
+    setCartItems(updatedCart);
+    // Update the global cart context
+    setCart(updatedCart);
   };
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-
-  const clearCart = () => {
-    setCart([]);
-  };
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -41,8 +49,9 @@ function ShoppingCart() {
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
       alert("Thank you for your purchase!");
-      clearCart();
+      // Clear the cart after successful payment
       setCartItems([]);
+      setCart([]);
     });
   };
 
@@ -65,9 +74,22 @@ function ShoppingCart() {
                 <p>{item.description}</p>
                 <div className="flex justify-between items-center mt-2">
                   <div>
-                    <strong>Price:</strong> ${item.price.toFixed(2)}{" "}
+                    <strong>Price:</strong> ${item.price.toFixed(2)}
                   </div>
-                  <div>
+                  <div className="flex items-center">
+                    <select
+                      value={item.quantity}
+                      onChange={(e) =>
+                        handleQuantityChange(item.id, parseInt(e.target.value))
+                      }
+                      className="mr-2 border border-gray-300 rounded"
+                    >
+                      {[...Array(10).keys()].map((num) => (
+                        <option key={num + 1} value={num + 1}>
+                          {num + 1}
+                        </option>
+                      ))}
+                    </select>
                     <button
                       onClick={() => handleRemoveFromCart(item.id)}
                       className="bg-red-500 text-white px-3 py-1.5 rounded text-sm focus:outline-none focus:ring"
