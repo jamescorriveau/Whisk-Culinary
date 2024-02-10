@@ -41,7 +41,7 @@ function Home() {
   }, [currentImageIndex]);
 
   useEffect(() => {
-    setProducts(productData.products.slice(2, 8));
+    setProducts(productData.products.slice(42, 48));
   }, []);
 
   return (
@@ -63,7 +63,7 @@ function Home() {
           className="text-3xl font-bold"
           style={{ fontFamily: "Didot, serif" }}
         >
-          Simplify Cooking with Easy-Pick Kitchen Tools
+          Easy-Pick Kitchen Ware from Valor
         </h2>
       </div>
 
