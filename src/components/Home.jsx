@@ -2,15 +2,16 @@
 
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { gsap } from "gsap";
-import globalKnivesImage from "../banner_images/global-knives-header-banner-1564754806.jpeg";
-import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
-import staubMockupImage from "../banner_images/misono_single.webp";
-import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
 import productData from "../../server/db.json";
 import ProductItem from "./ProductItem";
 import ProductImageContext from "./ProductImageContext";
 import { CartContext } from "./CartContext";
 import "../App.css";
+
+import globalKnivesImage from "../banner_images/global-knives-header-banner-1564754806.jpeg";
+import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
+import staubMockupImage from "../banner_images/misono_single.webp";
+import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
 
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -44,6 +45,8 @@ function Home() {
     setProducts(productData.products.slice(42, 48));
   }, []);
 
+  const additionalProducts = productData.products.slice(11, 17);
+
   return (
     <div>
       <div className="image-slider">
@@ -53,8 +56,6 @@ function Home() {
           alt="Featured Product"
         />
       </div>
-
-      {/* Tagline added here */}
       <div
         className="tagline"
         style={{ textAlign: "center", margin: "20px 0" }}
@@ -63,7 +64,7 @@ function Home() {
           className="text-3xl font-bold"
           style={{ fontFamily: "Didot, serif" }}
         >
-          Easy-Pick Kitchen Ware from Valor
+          Easy-Pick Cook Ware from Valor®
         </h2>
       </div>
 
@@ -71,7 +72,31 @@ function Home() {
         className="product-grid grid grid-cols-3 gap-12 mx-auto"
         style={{ maxWidth: "800px" }}
       >
+        {/* Render existing products */}
         {products.map((product) => (
+          <ProductItem key={product.product_id} product={product} />
+        ))}
+      </div>
+
+      {/* New Tagline Here */}
+      <div
+        className="tagline"
+        style={{ textAlign: "center", margin: "20px 0" }}
+      >
+        <h2
+          className="text-3xl font-bold"
+          style={{ fontFamily: "Didot, serif" }}
+        >
+          Elevate Your Kitchen with KitchenAid®
+        </h2>
+      </div>
+
+      <div
+        className="product-grid grid grid-cols-3 gap-12 mx-auto"
+        style={{ maxWidth: "800px" }}
+      >
+        {/* Render additional products */}
+        {additionalProducts.map((product) => (
           <ProductItem key={product.product_id} product={product} />
         ))}
       </div>
