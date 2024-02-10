@@ -6,40 +6,49 @@ import ProductImageContext from "./ProductImageContext";
 import { PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
-  const { cart, setCart, removeFromCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
+  const [totalAmount, setTotalAmount] = useState("0.00");
 
   useEffect(() => {
     setCartItems(cart);
   }, [cart]);
 
+  const calculateTotalAmount = (items) => {
+    return items
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2);
+  };
+
+  useEffect(() => {
+    setTotalAmount(calculateTotalAmount(cartItems));
+  }, [cartItems]);
+
   const handleQuantityChange = (productId, newQuantity) => {
     const updatedCart = cartItems.map((item) =>
       item.id === productId ? { ...item, quantity: newQuantity } : item
     );
+
     setCartItems(updatedCart);
-    // Update the global cart context if needed
     setCart(updatedCart);
+
+    setTotalAmount(calculateTotalAmount(updatedCart));
   };
 
   const handleRemoveFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(updatedCart);
-    // Update the global cart context
     setCart(updatedCart);
-  };
 
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+    setTotalAmount(calculateTotalAmount(updatedCart));
+  };
 
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: totalPrice.toFixed(2),
+            value: totalAmount,
           },
         },
       ],
@@ -49,7 +58,6 @@ function ShoppingCart() {
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
       alert("Thank you for your purchase!");
-      // Clear the cart after successful payment
       setCartItems([]);
       setCart([]);
     });
@@ -109,32 +117,18 @@ function ShoppingCart() {
         <div className="flex justify-end mt-2.5 mb-4">
           <div className="flex flex-col items-center">
             <div className="mb-4">
-              <strong>Total: ${totalPrice.toFixed(2)}</strong>
+              <strong>Total: ${totalAmount}</strong>
             </div>
-            <div className="mb-2">
-              <PayPalButtons
-                fundingSource={FUNDING.PAYPAL}
-                style={{ layout: "vertical" }}
-                createOrder={createOrder}
-                onApprove={onApprove}
-              />
-            </div>
-            <div className="mb-2">
-              <PayPalButtons
-                fundingSource={FUNDING.PAYLATER}
-                style={{ layout: "vertical" }}
-                createOrder={createOrder}
-                onApprove={onApprove}
-              />
-            </div>
-            <div>
-              <PayPalButtons
-                fundingSource={FUNDING.CARD}
-                style={{ layout: "vertical" }}
-                createOrder={createOrder}
-                onApprove={onApprove}
-              />
-            </div>
+            {["PAYPAL", "PAYLATER", "CARD"].map((fundingSource, index) => (
+              <div className="mb-2" key={`${totalAmount}-${fundingSource}`}>
+                <PayPalButtons
+                  fundingSource={FUNDING[fundingSource]}
+                  style={{ layout: "vertical" }}
+                  createOrder={createOrder}
+                  onApprove={onApprove}
+                />
+              </div>
+            ))}
           </div>
         </div>
       )}
