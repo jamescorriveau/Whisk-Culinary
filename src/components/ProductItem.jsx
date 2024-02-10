@@ -22,7 +22,16 @@ const ProductItem = ({ product }) => {
       <div className="flex justify-center items-center">
         {!isProductInCart(product.product_id) ? (
           <button
-            onClick={() => addToCart({ ...product, id: product.product_id }, 1)}
+            onClick={() =>
+              addToCart(
+                {
+                  ...product,
+                  id: product.product_id,
+                  name: product.product,
+                },
+                1
+              )
+            }
             className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-xs"
           >
             Add to Bag
