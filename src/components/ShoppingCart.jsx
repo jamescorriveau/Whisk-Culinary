@@ -85,12 +85,15 @@ function ShoppingCart() {
                     <strong>Price:</strong> ${item.price.toFixed(2)}
                   </div>
                   <div className="flex items-center">
+                    <span className="text-sm mr-2 font-medium text-gray-700">
+                      Qty:
+                    </span>
                     <select
                       value={item.quantity}
                       onChange={(e) =>
                         handleQuantityChange(item.id, parseInt(e.target.value))
                       }
-                      className="mr-2 border border-gray-300 rounded"
+                      className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-md"
                     >
                       {[...Array(10).keys()].map((num) => (
                         <option key={num + 1} value={num + 1}>
@@ -100,7 +103,7 @@ function ShoppingCart() {
                     </select>
                     <button
                       onClick={() => handleRemoveFromCart(item.id)}
-                      className="bg-red-500 text-white px-3 py-1.5 rounded text-sm focus:outline-none focus:ring"
+                      className="ml-2 bg-red-500 text-white px-3 py-1.5 rounded text-sm focus:outline-none focus:ring"
                     >
                       Remove
                     </button>
