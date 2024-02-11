@@ -77,7 +77,7 @@ function ShoppingCart() {
                 altText={item.name}
                 imageSizeClass="w-32 h-32"
               />
-              <div className="ml-2.5 flex-grow">
+              <div className="ml-6 flex-grow">
                 <strong>{item.name}</strong>
                 <p>{item.description}</p>
                 <div className="flex justify-between items-center mt-2">
@@ -93,7 +93,7 @@ function ShoppingCart() {
                       onChange={(e) =>
                         handleQuantityChange(item.id, parseInt(e.target.value))
                       }
-                      className="w-1/2 px-2 py-1 bg-black dark-gold-text rounded-md text-md"
+                      className="w-1/2 px-1 py-1 bg-black dark-gold-text rounded-md text-md"
                     >
                       {[...Array(10).keys()].map((num) => (
                         <option key={num + 1} value={num + 1}>
