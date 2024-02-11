@@ -9,15 +9,17 @@ import { CartContext } from "./CartContext";
 import "../App.css";
 
 import globalKnivesImage from "../banner_images/global-knives-header-banner-1564754806.jpeg";
+// import hellsHandleImage from "../banner_images/mercer_hell_s_handle_heavy_duty_turner.webp";
 import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
-import staubMockupImage from "../banner_images/misono_single.webp";
-import vitaMixImage from "../banner_images/vita-blenders-banner-center-captioned-desktop.avif";
+import staubMockupImage from "../banner_images/misono_collections_2000x.webp";
+import vitaMixImage from "../banner_images/Vitamix_Banner1.4.png";
 
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [products, setProducts] = useState([]);
   const images = [
     globalKnivesImage,
+    // hellsHandleImage,
     kitchenAidImage,
     staubMockupImage,
     vitaMixImage,

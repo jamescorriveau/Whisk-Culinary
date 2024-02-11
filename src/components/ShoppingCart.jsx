@@ -122,7 +122,7 @@ function ShoppingCart() {
             <div className="mb-4">
               <strong>Total: ${totalAmount}</strong>
             </div>
-            {["PAYPAL", "PAYLATER", "CARD"].map((fundingSource, index) => (
+            {["PAYPAL", "CARD"].map((fundingSource, index) => (
               <div className="mb-2" key={`${totalAmount}-${fundingSource}`}>
                 <PayPalButtons
                   fundingSource={FUNDING[fundingSource]}
