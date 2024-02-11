@@ -15,6 +15,16 @@
   font-family: "Didot", serif;
 }
 
+.brand-header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  background-color: white;
+  overflow: hidden;
+}
+
 .header-custom {
   position: fixed;
   top: 140px;
@@ -29,7 +39,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 50;
+  z-index: 1000;
 }
 
 .header-button {

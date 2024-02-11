@@ -26,14 +26,14 @@ function BrandHeader() {
 
   return (
     <div
-      className="brand-header-container bg-white text-black pb-12 px-6 pt-6 fixed top-0 left-0 w-full z-50"
+      className="brand-header-container bg-white text-black pb-4 px-6 pt-6 fixed top-0 left-0 w-full z-1050"
       style={{ overflow: "hidden" }}
     >
       <div className="flex justify-between items-center w-full">
         <div
           ref={leftSectionRef}
           className="flex items-center justify-start flex-1"
-          style={{ opacity: 0, paddingLeft: "5%" }} // Move closer to the left but not all the way
+          style={{ opacity: 0, paddingLeft: "5%" }}
         >
           <Link to="/">
             <img
@@ -46,7 +46,7 @@ function BrandHeader() {
         <div
           ref={centerSectionRef}
           className="text-center"
-          style={{ opacity: 0, flex: "0 1 auto", maxWidth: "60%" }} // Ensure center content is responsive but constrained
+          style={{ opacity: 0, flex: "0 1 auto", maxWidth: "60%" }}
         >
           <h1
             className="text-5xl font-bold mb-2"
