@@ -103,7 +103,7 @@ function Header() {
   );
 
   return (
-    <header className="header-custom bg-gray-800 text-white py-4 px-6 flex justify-between items-center">
+    <header className="header-custom bg-black text-white py-4 px-6 flex justify-between items-center">
       <form onSubmit={handleSearchSubmit} className="inline relative">
         <input
           type="text"

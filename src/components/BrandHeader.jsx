@@ -26,7 +26,7 @@ function BrandHeader() {
 
   return (
     <div
-      className="brand-header-container bg-white text-black pt-8 pb-6 px-6 fixed top-0 left-0 w-full z-50"
+      className="brand-header-container bg-white text-black pb-12 px-6 pt-6 fixed top-0 left-0 w-full z-50"
       style={{ overflow: "hidden" }}
     >
       <div className="flex justify-between items-center w-full px-5">
@@ -39,7 +39,7 @@ function BrandHeader() {
             <img
               src="/Whisk-logo.png"
               alt="Whisk Logo"
-              style={{ paddingRight: "40px", width: "215px" }}
+              style={{ paddingRight: "20px", width: "135px" }}
             />
           </Link>
         </div>
