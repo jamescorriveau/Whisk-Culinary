@@ -10,6 +10,7 @@ function Header() {
   const [localSearchQuery, setLocalSearchQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -70,6 +71,20 @@ function Header() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev < suggestions.length - 1 ? prev + 1 : prev
+      );
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+    } else if (event.key === "Enter" && highlightedIndex >= 0) {
+      handleSuggestionClick(suggestions[highlightedIndex]);
+    }
+  };
+
   useEffect(() => {
     if (showDropdown) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -95,6 +110,7 @@ function Header() {
           placeholder="Search Our Products..."
           value={localSearchQuery}
           onChange={handleSearchChange}
+          onKeyDown={handleKeyDown}
           className="py-2 pl-10 pr-2 text-black outline-none bg-gray-200 rounded-full"
           style={{ width: "350px" }}
         />
@@ -115,7 +131,9 @@ function Header() {
               <li
                 key={index}
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="text-black px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                className={`text-black px-4 py-2 hover:bg-gray-100 cursor-pointer ${
+                  index === highlightedIndex ? "bg-gray-200" : ""
+                }`}
               >
                 {suggestion}
               </li>
