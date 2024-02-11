@@ -45,7 +45,13 @@ function Home() {
     setProducts(productData.products.slice(42, 48));
   }, []);
 
-  const additionalProducts = productData.products.slice(11, 17);
+  // Define the IDs of the products you want to include
+  const additionalProductIds = [6, 7, 19, 20, 21, 22];
+
+  // Filter products to include only those with the specified IDs
+  const additionalProducts = productData.products.filter((product) =>
+    additionalProductIds.includes(product.product_id)
+  );
 
   return (
     <div>
@@ -60,11 +66,8 @@ function Home() {
         className="tagline"
         style={{ textAlign: "center", margin: "20px 0" }}
       >
-        <h2
-          className="text-3xl font-bold"
-          style={{ fontFamily: "Didot, serif" }}
-        >
-          Easy-Pick Cook Ware from Valor®
+        <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
+          High-Temp Cook Ware from Valor®
         </h2>
       </div>
 
@@ -72,22 +75,16 @@ function Home() {
         className="product-grid grid grid-cols-3 gap-12 mx-auto"
         style={{ maxWidth: "800px" }}
       >
-        {/* Render existing products */}
         {products.map((product) => (
           <ProductItem key={product.product_id} product={product} />
         ))}
       </div>
-
-      {/* New Tagline Here */}
       <div
         className="tagline"
         style={{ textAlign: "center", margin: "20px 0" }}
       >
-        <h2
-          className="text-3xl font-bold"
-          style={{ fontFamily: "Didot, serif" }}
-        >
-          Elevate Your Kitchen with KitchenAid®
+        <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
+          Essential Kitchen Tools
         </h2>
       </div>
 
@@ -95,7 +92,6 @@ function Home() {
         className="product-grid grid grid-cols-3 gap-12 mx-auto"
         style={{ maxWidth: "800px" }}
       >
-        {/* Render additional products */}
         {additionalProducts.map((product) => (
           <ProductItem key={product.product_id} product={product} />
         ))}

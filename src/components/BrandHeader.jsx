@@ -29,24 +29,24 @@ function BrandHeader() {
       className="brand-header-container bg-white text-black pb-12 px-6 pt-6 fixed top-0 left-0 w-full z-50"
       style={{ overflow: "hidden" }}
     >
-      <div className="flex justify-between items-center w-full px-5">
+      <div className="flex justify-between items-center w-full">
         <div
           ref={leftSectionRef}
-          className="flex items-center"
-          style={{ marginLeft: "100px", opacity: 0 }}
+          className="flex items-center justify-start flex-1"
+          style={{ opacity: 0, paddingLeft: "5%" }} // Move closer to the left but not all the way
         >
           <Link to="/">
             <img
               src="/Whisk-logo.png"
               alt="Whisk Logo"
-              style={{ paddingRight: "20px", width: "135px" }}
+              style={{ width: "135px" }}
             />
           </Link>
         </div>
         <div
           ref={centerSectionRef}
-          className="flex-1 text-center"
-          style={{ opacity: 0 }}
+          className="text-center"
+          style={{ opacity: 0, flex: "0 1 auto", maxWidth: "60%" }} // Ensure center content is responsive but constrained
         >
           <h1
             className="text-5xl font-bold mb-2"
@@ -60,18 +60,19 @@ function BrandHeader() {
         </div>
         <div
           ref={rightSectionRef}
-          className="flex items-center"
-          style={{ opacity: 0 }}
+          className="flex items-center justify-end flex-1"
+          style={{ opacity: 0, paddingRight: "5%" }}
         >
           <a
             href="https://www.globalcutleryusa.com/knife-care"
             target="_blank"
             rel="noopener noreferrer"
+            style={{ paddingRight: "20px" }}
           >
             <img
               src="/Global-logo.png"
               alt="Global Logo"
-              style={{ paddingRight: "40px" }}
+              style={{ maxWidth: "135px" }}
             />
           </a>
           <a
@@ -82,7 +83,7 @@ function BrandHeader() {
             <img
               src="/KitchenAid-logo.png"
               alt="KitchenAid Logo"
-              style={{ paddingRight: "100px" }}
+              style={{ maxWidth: "135px" }}
             />
           </a>
         </div>
