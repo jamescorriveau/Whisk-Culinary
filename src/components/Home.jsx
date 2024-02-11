@@ -45,10 +45,8 @@ function Home() {
     setProducts(productData.products.slice(42, 48));
   }, []);
 
-  // Define the IDs of the products you want to include
   const additionalProductIds = [6, 7, 19, 20, 21, 22];
 
-  // Filter products to include only those with the specified IDs
   const additionalProducts = productData.products.filter((product) =>
     additionalProductIds.includes(product.product_id)
   );
