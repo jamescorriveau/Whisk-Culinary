@@ -1,5 +1,7 @@
 // UserProfile.jsx
 
+// UserProfile.jsx
+
 import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
@@ -17,6 +19,7 @@ function UserProfile() {
   const [hasAttemptedAuth, setHasAttemptedAuth] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
   const [isNewUser, setIsNewUser] = useState(false);
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("currentUser");
@@ -25,6 +28,12 @@ function UserProfile() {
       setIsLoggedIn(true);
     }
   }, [setIsLoggedIn]);
+
+  const toggleLoginFormVisibility = () => {
+    setLoginForm({ email: "", password: "" }); // Clear login form fields
+    setIsLoginFormVisible(!isLoginFormVisible);
+    setLoginFailed(false); // Clear login error on form switch
+  };
 
   const handleLoginChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -127,86 +136,107 @@ function UserProfile() {
                 Login failed. Please try again.
               </p>
             )}
-            <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
-            <form
-              onSubmit={handleLogin}
-              className="flex flex-col space-y-4 items-center"
-            >
-              <input
-                type="email"
-                name="email"
-                value={loginForm.email}
-                onChange={handleLoginChange}
-                placeholder="Email"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <input
-                type="password"
-                name="password"
-                value={loginForm.password}
-                onChange={handleLoginChange}
-                placeholder="Password"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
-              >
-                Login
-              </button>
-            </form>
-            <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
-            <form
-              onSubmit={submitSignup}
-              className="flex flex-col space-y-4 items-center"
-            >
-              <input
-                type="text"
-                name="username"
-                value={signupForm.username}
-                onChange={handleSignupChange}
-                placeholder="Username"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <input
-                type="text"
-                name="first_name"
-                value={signupForm.first_name}
-                onChange={handleSignupChange}
-                placeholder="First Name"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <input
-                type="text"
-                name="last_name"
-                value={signupForm.last_name}
-                onChange={handleSignupChange}
-                placeholder="Last Name"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <input
-                type="email"
-                name="email"
-                value={signupForm.email}
-                onChange={handleSignupChange}
-                placeholder="Email"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <input
-                type="password"
-                name="password"
-                value={signupForm.password}
-                onChange={handleSignupChange}
-                placeholder="Password"
-                className="w-full p-2 border border-gray-300 rounded-md text-black"
-              />
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
-              >
-                Sign Up
-              </button>
-            </form>
+            {isLoginFormVisible ? (
+              <>
+                <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
+                <form
+                  onSubmit={handleLogin}
+                  className="flex flex-col space-y-4 items-center"
+                >
+                  <input
+                    type="email"
+                    name="email"
+                    value={loginForm.email}
+                    onChange={handleLoginChange}
+                    placeholder="Email"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    value={loginForm.password}
+                    onChange={handleLoginChange}
+                    placeholder="Password"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    onClick={toggleLoginFormVisibility}
+                    className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                  >
+                    Sign Up for An Account
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
+                <form
+                  onSubmit={submitSignup}
+                  className="flex flex-col space-y-4 items-center"
+                >
+                  <input
+                    type="text"
+                    name="username"
+                    value={signupForm.username}
+                    onChange={handleSignupChange}
+                    placeholder="Username"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <input
+                    type="text"
+                    name="first_name"
+                    value={signupForm.first_name}
+                    onChange={handleSignupChange}
+                    placeholder="First Name"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <input
+                    type="text"
+                    name="last_name"
+                    value={signupForm.last_name}
+                    onChange={handleSignupChange}
+                    placeholder="Last Name"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={signupForm.email}
+                    onChange={handleSignupChange}
+                    placeholder="Email"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    value={signupForm.password}
+                    onChange={handleSignupChange}
+                    placeholder="Password"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                  >
+                    Sign Up
+                  </button>
+                  <button
+                    type="button"
+                    onClick={toggleLoginFormVisibility}
+                    className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                  >
+                    Already have an account? Login
+                  </button>
+                </form>
+              </>
+            )}
           </>
         )}
       </div>

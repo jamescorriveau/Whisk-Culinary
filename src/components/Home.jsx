@@ -67,7 +67,7 @@ function Home() {
         style={{ textAlign: "center", margin: "20px 0" }}
       >
         <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
-          High-Temp Cook Ware by Valor®
+          Enameled Cook Ware by Valor®
         </h2>
       </div>
 

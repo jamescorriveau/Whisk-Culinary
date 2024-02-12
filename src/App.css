@@ -17,17 +17,18 @@
 
 .brand-header-container {
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 0;
   width: 100%;
-  z-index: 1050;
+  z-index: 1040;
   background-color: white;
   overflow: hidden;
+  margin-top: 70px;
 }
 
 .header-custom {
   position: fixed;
-  top: 140px;
+  top: 0;
   left: 0;
   width: 100%;
   background-color: black;
@@ -39,7 +40,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
+  z-index: 1050;
 }
 
 .header-button {

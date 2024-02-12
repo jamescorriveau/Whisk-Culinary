@@ -19,6 +19,7 @@ function ProductSearch() {
 
   useEffect(() => {
     if (searchQuery) {
+      console.log(searchQuery);
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
         .then((response) => response.json())
         .then((data) => setFilteredProducts(data))
