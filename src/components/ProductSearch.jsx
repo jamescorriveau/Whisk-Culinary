@@ -35,14 +35,12 @@ function ProductSearch() {
     return cart.some((item) => item.id === productId);
   };
 
-  // Event handler for search input change
   const handleSearchChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
 
     let matches = [];
     if (value.length > 0) {
-      // Filter products based on the search term
       matches = filteredProducts.filter((product) =>
         product.name.toLowerCase().includes(value.toLowerCase())
       );

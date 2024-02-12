@@ -2,7 +2,7 @@
 
 import React from "react";
 
-function ProductImageComponent({ imageUrl, altText, imageSizeClass }) {
+function ProductImageContext({ imageUrl, altText, imageSizeClass }) {
   return (
     <div
       className={`flex justify-center items-center h-full ${imageSizeClass}`}
@@ -16,4 +16,4 @@ function ProductImageComponent({ imageUrl, altText, imageSizeClass }) {
   );
 }
 
-export default ProductImageComponent;
+export default ProductImageContext;

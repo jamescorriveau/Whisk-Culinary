@@ -47,7 +47,6 @@ def register():
         data = request.json
         email = data.get('email')
 
-        # Check if email already exists
         if User.query.filter_by(email=email).first():
             return jsonify({"error": "Email already registered"}), 400
 
@@ -69,6 +68,8 @@ def register():
     except Exception as e:
         print(f"Error in register route: {e}")
         return jsonify({"error": "An error occurred during registration"}), 500
+    
+
 @app.route('/api/products', methods=['GET'])
 @login_required
 def get_products():

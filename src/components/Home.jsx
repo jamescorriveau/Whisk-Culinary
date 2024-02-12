@@ -47,7 +47,7 @@ function Home() {
     setProducts(productData.products.slice(42, 48));
   }, []);
 
-  const additionalProductIds = [6, 7, 19, 20, 21, 22];
+  const additionalProductIds = [6, 23, 19, 20, 21, 22];
 
   const additionalProducts = productData.products.filter((product) =>
     additionalProductIds.includes(product.product_id)
@@ -67,7 +67,7 @@ function Home() {
         style={{ textAlign: "center", margin: "20px 0" }}
       >
         <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
-          High-Temp Cook Ware from Valor®
+          High-Temp Cook Ware by Valor®
         </h2>
       </div>
 
