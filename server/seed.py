@@ -21,6 +21,11 @@ def seed_data_from_json():
                     quantity=product_data.get("quantity", 0)
                 )
                 db.session.add(product)
+            else:
+                existing_product.name = product_data["product"]
+                existing_product.image = product_data["image"]
+                existing_product.price = product_data["price"]
+                existing_product.quantity = product_data.get("quantity", 0)
 
         # Seed users
         for user_data in data.get("user_table", []):
@@ -30,13 +35,13 @@ def seed_data_from_json():
                 user = User(
                     username=user_data["username"],
                     first_name=user_data["first_name"],
-                    last_name=user_data["last_name"],
+                    last_name=user_data.get("last_name", ""),  
                     password=hashed_password,
                     email=user_data["email"]
                 )
                 db.session.add(user)
-
-        db.session.commit()
+            else:
+                db.session.commit()
 
 if __name__ == "__main__":
     with app.app_context():

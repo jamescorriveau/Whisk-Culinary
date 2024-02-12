@@ -64,7 +64,7 @@ function Home() {
       </div>
       <div
         className="tagline"
-        style={{ textAlign: "center", margin: "20px 0" }}
+        style={{ textAlign: "center", margin: "80px 0 20px" }}
       >
         <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
           Enameled Cook Ware by Valor®
@@ -81,7 +81,7 @@ function Home() {
       </div>
       <div
         className="tagline"
-        style={{ textAlign: "center", margin: "20px 0" }}
+        style={{ textAlign: "center", margin: "80px 0 20px" }}
       >
         <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
           Essential Kitchen Tools

@@ -11,7 +11,7 @@
       "product_id": 2,
       "image": "https://cdnimg.webstaurantstore.com/images/products/large/42239/2620633.jpg",
       "price": 1299.99,
-      "product": "Robot Coup Commercial Food Processor",
+      "product": "Robot Coup Commercial Food Processor with Slice Attachment",
       "quantity": 1000
     },
     {
@@ -81,7 +81,7 @@
       "product_id": 12,
       "image": "https://cdnimg.webstaurantstore.com/images/products/large/740351/2558665.jpg",
       "price": 599.99,
-      "product": "Kitchen Aid KSM89990OB Black 8 qt. Bowl Countertop Mixer",
+      "product": "Kitchen Aid KSM89990OB 8 qt. Bowl Countertop Mixer",
       "quantity": 1000
     },
     {
@@ -158,7 +158,7 @@
       "product_id": 23,
       "image": "https://cdnimg.webstaurantstore.com/images/products/large/56740/850046.jpg",
       "price": 14.49,
-      "product": "Taylor 1476 Instant Read Digital Pocket Probe Thermometer",
+      "product": "Taylor 1476 Digital Pocket Probe Thermometer",
       "quantity": 1000
     },
     {
@@ -242,14 +242,14 @@
       "product_id": 35,
       "image": "https://m.media-amazon.com/images/I/71FBm3jhtgL._AC_SX679_.jpg",
       "price": 129.99,
-      "product": "Global CROMOVA Stainless Steel Chef and Paring Knives, 2 Piece Set",
+      "product": "Global CROMOVA Stainless Steel Knife Set",
       "quantity": 1000
     },
     {
       "product_id": 36,
       "image": "https://m.media-amazon.com/images/I/619RUnAdtGL._AC_SX679_.jpg",
       "price": 49.99,
-      "product": "KEENBEST Professional Knife Sharpening Stone Kit – 400/1000 and 3000/8000 Grit Whetstone",
+      "product": "KEENBEST Knife Sharpening Kit",
       "quantity": 1000
     },
     {
@@ -425,6 +425,55 @@
       "image": "https://cdnimg.webstaurantstore.com/images/products/large/644228/2368552.jpg",
       "price": 249.99,
       "product": "Avantco 12 Tray Stainless Steel Food Dehydrator",
+      "quantity": 1000
+    },
+    {
+      "product_id": 62,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/642196/2260877.jpg",
+      "price": 1599.99,
+      "product": "Vitamix 5205 XL 4.2 hp Variable Speed Blender",
+      "quantity": 1000
+    },
+    {
+      "product_id": 63,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/458096/1716898.jpg",
+      "price": 449.99,
+      "product": "Vitamix 62824 Drink Machine Advance 2.3 hp",
+      "quantity": 1000
+    },
+    {
+      "product_id": 64,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/481243/1788110.jpg",
+      "price": 99.99,
+      "product": "Vitamix 48 oz. Tritan™ Blender Jar with Lid and Wet Blade",
+      "quantity": 1000
+    },
+    {
+      "product_id": 65,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/536515/2094103.jpg",
+      "price": 11.99,
+      "product": "Vitamix Tamper for Standard Blender Containers",
+      "quantity": 1000
+    },
+    {
+      "product_id": 66,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/481259/1788116.jpg",
+      "price": 129.99,
+      "product": "Vitamix 64 oz. Tritan™ Blender Jar with Lid and Wet Blade",
+      "quantity": 1000
+    },
+    {
+      "product_id": 67,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/198469/2600404.jpg",
+      "price": 649.99,
+      "product": "Robot Coupe 2.5 Qt. Food Processor",
+      "quantity": 1000
+    },
+    {
+      "product_id": 68,
+      "image": "https://cdnimg.webstaurantstore.com/images/products/large/27244/2600394.jpg",
+      "price": 1899.99,
+      "product": "Robot Coupe 4 Qt. Stainless Steel Food Processor",
       "quantity": 1000
     }
   ],

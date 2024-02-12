@@ -14,14 +14,12 @@ function ShoppingCart() {
     setCartItems(cart);
   }, [cart]);
 
-  const calculateTotalAmount = (items) => {
-    return items
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
-  };
-
   useEffect(() => {
-    setTotalAmount(calculateTotalAmount(cartItems));
+    setTotalAmount(
+      cartItems
+        .reduce((total, item) => total + item.price * item.quantity, 0)
+        .toFixed(2)
+    );
   }, [cartItems]);
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -31,7 +29,6 @@ function ShoppingCart() {
 
     setCartItems(updatedCart);
     setCart(updatedCart);
-
     setTotalAmount(calculateTotalAmount(updatedCart));
   };
 
@@ -39,8 +36,13 @@ function ShoppingCart() {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(updatedCart);
     setCart(updatedCart);
-
     setTotalAmount(calculateTotalAmount(updatedCart));
+  };
+
+  const calculateTotalAmount = (items) => {
+    return items
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2);
   };
 
   const createOrder = (data, actions) => {
@@ -93,7 +95,7 @@ function ShoppingCart() {
                       onChange={(e) =>
                         handleQuantityChange(item.id, parseInt(e.target.value))
                       }
-                      className="w-1/2 px-1 py-1 bg-black dark-gold-text rounded-md text-md"
+                      className="w-1/2 px-1 py-1 bg-white rounded-md text-md border border-gray-300"
                     >
                       {[...Array(10).keys()].map((num) => (
                         <option key={num + 1} value={num + 1}>
@@ -114,7 +116,17 @@ function ShoppingCart() {
           ))}
         </ul>
       ) : (
-        <p>Your Shopping Bag is empty.</p>
+        <div className="flex justify-center items-center h-full">
+          <div className="text-center">
+            <img
+              src="https://cdn3.iconfinder.com/data/icons/shopping-and-ecommerce-28/90/empty_cart-512.png"
+              alt="Empty Cart"
+              className="mx-auto"
+              style={{ width: "200px", height: "200px" }}
+            />
+            <p>Your Shopping Bag is empty.</p>
+          </div>
+        </div>
       )}
       {cartItems.length > 0 && (
         <div className="flex justify-end mt-2.5 mb-4">

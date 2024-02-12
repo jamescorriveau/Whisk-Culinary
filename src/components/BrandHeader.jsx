@@ -9,9 +9,16 @@ function BrandHeader() {
   const leftSectionRef = useRef(null);
   const centerSectionRef = useRef(null);
   const rightSectionRef = useRef(null);
+  const logosRef = useRef([]);
+
+  logosRef.current = [];
+  const addLogoRef = (el) => {
+    if (el && !logosRef.current.includes(el)) {
+      logosRef.current.push(el);
+    }
+  };
 
   useEffect(() => {
-    // Initial fade-in animation for header sections
     gsap.to(
       [
         leftSectionRef.current,
@@ -19,27 +26,28 @@ function BrandHeader() {
         rightSectionRef.current,
       ],
       {
-        duration: 3, // Duration for the initial fade-in of sections, adjust as needed
+        duration: 3,
         opacity: 1,
         ease: "power2.out",
       }
     );
 
     const handleScroll = () => {
-      const triggerHeight = 50; // Start animation after 50px of scroll
+      const triggerHeight = 50;
+      const scrollAmount = window.scrollY;
+      const rotation = scrollAmount % 180;
 
       if (window.scrollY > triggerHeight) {
-        // Animate header out of view faster
         gsap.to(headerRef.current, { y: -100, opacity: 0, duration: 0.25 });
       } else {
-        // Animate header back to view faster
         gsap.to(headerRef.current, { y: 0, opacity: 1, duration: 0.25 });
       }
+
+      gsap.to(logosRef.current, { rotation, duration: 0.3, ease: "none" });
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup function to remove event listener
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -57,6 +65,7 @@ function BrandHeader() {
         >
           <Link to="/">
             <img
+              ref={addLogoRef}
               src="/Whisk-logo.png"
               alt="Whisk Logo"
               style={{ width: "135px" }}
