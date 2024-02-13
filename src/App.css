@@ -165,3 +165,16 @@
   float: right;
   cursor: pointer;
 }
+
+.footer-banner {
+  background-color: white;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.footer-banner svg {
+  fill: black;
+}

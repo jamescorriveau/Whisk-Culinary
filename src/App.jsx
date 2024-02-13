@@ -11,6 +11,7 @@ import BrandHeader from "./components/BrandHeader";
 import { CartProvider } from "./components/CartContext";
 import { UserProvider } from "./components/UserContext";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import FooterBanner from "./components/FooterBanner";
 import "./App.css";
 import "./index.css";
 
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/user-profile" element={<UserProfile />} />
               </Routes>
             </div>
+            <FooterBanner /> {/* Include the FooterBanner component here */}
           </div>
         </CartProvider>
       </UserProvider>
