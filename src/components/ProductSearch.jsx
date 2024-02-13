@@ -1,7 +1,7 @@
 // ProductSearch.jsx
 
 import React, { useContext, useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import ProductImageComponent from "./ProductImageContext";
 
@@ -10,16 +10,12 @@ function ProductSearch() {
   const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
-  const navigate = useNavigate();
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   useEffect(() => {
     if (searchQuery) {
-      console.log(searchQuery);
+      // Assuming you have an endpoint to fetch products based on the search query
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
         .then((response) => response.json())
         .then((data) => setFilteredProducts(data))
@@ -32,42 +28,8 @@ function ProductSearch() {
     }
   }, [searchQuery]);
 
-  const isProductInCart = (productId) => {
-    return cart.some((item) => item.id === productId);
-  };
-
-  const handleSearchChange = (event) => {
-    const value = event.target.value;
-    setSearchTerm(value);
-
-    let matches = [];
-    if (value.length > 0) {
-      matches = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase())
-      );
-    }
-    setSuggestions(matches);
-  };
-
-  const handleSuggestionClick = (product) => {
-    setSearchTerm("");
-    setSuggestions([]);
-    navigate(`/product/${product.id}`);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev < suggestions.length - 1 ? prev + 1 : prev
-      );
-    } else if (event.key === "ArrowUp") {
-      event.preventDefault();
-      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
-    } else if (event.key === "Enter" && highlightedIndex >= 0) {
-      handleSuggestionClick(suggestions[highlightedIndex]);
-    }
-  };
+  const isProductInCart = (productId) =>
+    cart.some((item) => item.id === productId);
 
   return (
     <div>
@@ -111,17 +73,6 @@ function ProductSearch() {
           )}
         </div>
       )}
-      <ul>
-        {suggestions.map((product, index) => (
-          <li
-            key={product.id}
-            className={index === highlightedIndex ? "highlighted" : ""}
-            onClick={() => handleSuggestionClick(product)}
-          >
-            {product.name}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
