@@ -6,7 +6,7 @@ import ProductImageContext from "./ProductImageContext";
 import { PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, isLoggedIn } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState("0.00");
 
@@ -26,32 +26,33 @@ function ShoppingCart() {
     const updatedCart = cartItems.map((item) =>
       item.id === productId ? { ...item, quantity: newQuantity } : item
     );
-
     setCartItems(updatedCart);
-    setCart(updatedCart);
-    setTotalAmount(calculateTotalAmount(updatedCart));
+    // Assuming there's a method to update the cart in context
+    // setCart(updatedCart);
+    setTotalAmount(
+      updatedCart
+        .reduce((total, item) => total + item.price * item.quantity, 0)
+        .toFixed(2)
+    );
   };
 
   const handleRemoveFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(updatedCart);
-    setCart(updatedCart);
-    setTotalAmount(calculateTotalAmount(updatedCart));
-  };
-
-  const calculateTotalAmount = (items) => {
-    return items
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
+    // Assuming there's a method to update the cart in context
+    // setCart(updatedCart);
+    setTotalAmount(
+      updatedCart
+        .reduce((total, item) => total + item.price * item.quantity, 0)
+        .toFixed(2)
+    );
   };
 
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
         {
-          amount: {
-            value: totalAmount,
-          },
+          amount: { value: totalAmount },
         },
       ],
     });
@@ -61,7 +62,8 @@ function ShoppingCart() {
     return actions.order.capture().then((details) => {
       alert("Thank you for your purchase!");
       setCartItems([]);
-      setCart([]);
+      // Assuming there's a method to clear the cart in context
+      // setCart([]);
     });
   };
 
@@ -134,16 +136,29 @@ function ShoppingCart() {
             <div className="mb-4">
               <strong>Total: ${totalAmount}</strong>
             </div>
-            {["PAYPAL", "CARD"].map((fundingSource, index) => (
-              <div className="mb-2" key={`${totalAmount}-${fundingSource}`}>
-                <PayPalButtons
-                  fundingSource={FUNDING[fundingSource]}
-                  style={{ layout: "vertical" }}
-                  createOrder={createOrder}
-                  onApprove={onApprove}
-                />
-              </div>
-            ))}
+            {isLoggedIn ? (
+              ["PAYPAL", "CARD"].map((fundingSource, index) => (
+                <div key={`${totalAmount}-${fundingSource}`} className="mb-2">
+                  <PayPalButtons
+                    fundingSource={FUNDING[fundingSource]}
+                    style={{ layout: "vertical" }}
+                    createOrder={createOrder}
+                    onApprove={onApprove}
+                  />
+                </div>
+              ))
+            ) : (
+              <button
+                onClick={() =>
+                  alert(
+                    "Click on the Profile icon to log in to proceed with the checkout."
+                  )
+                }
+                className="ml-2 bg-black dark-gold-text px-3 py-1.5 rounded text-sm focus:outline-none focus:ring"
+              >
+                Login to Checkout
+              </button>
+            )}
           </div>
         </div>
       )}
