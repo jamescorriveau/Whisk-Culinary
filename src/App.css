@@ -83,15 +83,6 @@
   display: block;
 }
 
-.product-item {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .product-name {
   font-size: 1rem;
   overflow: hidden;
@@ -107,6 +98,15 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
   padding: 20px;
+}
+
+.product-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .product-item {

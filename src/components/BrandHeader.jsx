@@ -38,12 +38,12 @@ function BrandHeader() {
       const rotation = scrollAmount % 180;
 
       if (window.scrollY > triggerHeight) {
-        gsap.to(headerRef.current, { y: -100, opacity: 0, duration: 0.25 });
+        gsap.to(headerRef.current, { y: -50, opacity: 0, duration: 0.25 });
       } else {
         gsap.to(headerRef.current, { y: 0, opacity: 1, duration: 0.25 });
       }
 
-      gsap.to(logosRef.current, { rotation, duration: 0.3, ease: "none" });
+      gsap.to(logosRef.current, { rotation, duration: 0.1, ease: "none" });
     };
 
     window.addEventListener("scroll", handleScroll);
