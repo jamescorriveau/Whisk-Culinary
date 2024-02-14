@@ -8,8 +8,8 @@ import ProductImageContext from "./ProductImageContext";
 import { CartContext } from "./CartContext";
 import "../App.css";
 
-import globalKnivesImage from "../banner_images/global-knives-header-banner-1564754806.jpeg";
-// import hellsHandleImage from "../banner_images/mercer_hell_s_handle_heavy_duty_turner.webp";
+import globalKnivesImage from "../banner_images/How-to-Care-for-Global-Knives-Matchbox-banner-v1652940777176.jpg";
+// import enamelImage from "../banner_images/Dutch_Ovens_Banner.webp";
 import kitchenAidImage from "../banner_images/banner-image-kitchen-aid.jpeg";
 import misonoImage from "../banner_images/misono_collections_2000x.webp";
 import vitaMixImage from "../banner_images/Vitamix_Banner1.4.png";
@@ -19,7 +19,7 @@ function Home() {
   const [products, setProducts] = useState([]);
   const images = [
     globalKnivesImage,
-    // hellsHandleImage,
+    // enamelImage,
     kitchenAidImage,
     misonoImage,
     vitaMixImage,
@@ -67,7 +67,7 @@ function Home() {
         style={{ textAlign: "center", margin: "80px 0 20px" }}
       >
         <h2 className="text-3xl" style={{ fontFamily: "Didot, serif" }}>
-          Enameled Cook Ware by Valor®
+          Enameled Cast Iron by Valor®
         </h2>
       </div>
 

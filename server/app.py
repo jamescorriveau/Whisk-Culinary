@@ -23,6 +23,8 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, int(user_id))
+
+
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -40,6 +42,7 @@ def login():
 def logout():
     logout_user()
     return jsonify({"message": "Logged out successfully"}), 200
+
 
 @app.route('/api/register', methods=['POST'])
 def register():
@@ -69,6 +72,14 @@ def register():
         print(f"Error in register route: {e}")
         return jsonify({"error": "An error occurred during registration"}), 500
     
+    
+@app.route('/api/is_logged_in', methods=['GET'])
+def is_logged_in():
+    if current_user.is_authenticated:
+        return jsonify({"is_logged_in": True}), 200
+    else:
+        return jsonify({"is_logged_in": False}), 200    
+    
 
 @app.route('/api/products', methods=['GET'])
 @login_required
@@ -78,6 +89,7 @@ def get_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
 @app.route('/api/search', methods=['GET'])
 def search_products():
@@ -87,6 +99,7 @@ def search_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
     
 @app.route('/api/cart', methods=['GET'])
 @login_required
@@ -122,6 +135,7 @@ def add_to_cart():
 
     db.session.commit()
     return jsonify({"message": "Product added to cart"}), 200
+
 
 @app.route('/api/cart/remove', methods=['POST'])
 @login_required
