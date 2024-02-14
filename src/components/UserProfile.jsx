@@ -29,6 +29,13 @@ function UserProfile() {
 
   const toggleLoginFormVisibility = () => {
     setLoginForm({ email: "", password: "" });
+    setSignupForm({
+      username: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+    });
     setIsLoginFormVisible(!isLoginFormVisible);
     setLoginFailed(false);
   };
@@ -51,9 +58,8 @@ function UserProfile() {
         body: JSON.stringify(loginForm),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
+        const data = await response.json();
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem(
           "currentUser",
@@ -61,7 +67,6 @@ function UserProfile() {
         );
         setCurrentUser(data.username);
         setIsLoggedIn(true);
-        console.log(`User logged in: ${data.username}`);
         setIsNewUser(false);
         setLoginFailed(false);
       } else {
@@ -81,6 +86,18 @@ function UserProfile() {
         localStorage.removeItem("currentUser");
         setCurrentUser(null);
         setIsLoggedIn(false);
+        setLoginForm({ email: "", password: "" });
+        setSignupForm({
+          username: "",
+          first_name: "",
+          last_name: "",
+          email: "",
+          password: "",
+        });
+        setHasAttemptedAuth(false);
+        setLoginFailed(false);
+        setIsNewUser(false);
+        setIsLoginFormVisible(true);
       }
     } catch (error) {
       console.error("Logout error:", error);
@@ -101,7 +118,6 @@ function UserProfile() {
         const responseData = await response.json();
         setIsNewUser(true);
         setCurrentUser(responseData.username);
-        console.log(`New user registered: ${responseData.username}`);
         handleLogin({ preventDefault: () => {}, target: loginForm });
       } else {
         console.error("Signup error:", response);
