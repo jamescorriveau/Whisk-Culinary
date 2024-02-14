@@ -166,10 +166,10 @@ function ShoppingCart() {
             <img
               src="https://cdn3.iconfinder.com/data/icons/shopping-and-ecommerce-28/90/empty_cart-512.png"
               alt="Empty Cart"
-              className="mx-auto"
-              style={{ width: "200px", height: "200px" }}
+              className="mx-auto mt-12 mb-4"
+              style={{ width: "150px", height: "150px" }}
             />
-            <p>Your Shopping Bag is empty.</p>
+            <p className="pb-20">Your Shopping Bag is empty.</p>
           </div>
         </div>
       )}
