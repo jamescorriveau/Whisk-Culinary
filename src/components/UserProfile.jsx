@@ -123,13 +123,19 @@ function UserProfile() {
 
         {isLoggedIn ? (
           <div>
-            <p style={{ color: "black", marginBottom: "20px" }}>
+            <p
+              style={{
+                color: "black",
+                marginBottom: "10px",
+                paddingTop: "20px",
+              }}
+            >
               {isNewUser ? `Welcome to Whisk!` : `Welcome back!`}
             </p>
             <button
               onClick={handleLogout}
               className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
-              style={{ marginTop: "20px" }}
+              style={{ marginTop: "20px", fontFamily: "Didot, serif" }}
             >
               Logout
             </button>
@@ -178,7 +184,7 @@ function UserProfile() {
                     className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
                     style={{ fontFamily: "Didot, serif" }}
                   >
-                    Sign Up for An Account
+                    Sign Up
                   </button>
                 </form>
               </>
@@ -242,7 +248,7 @@ function UserProfile() {
                     className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
                     style={{ fontFamily: "Didot, serif" }}
                   >
-                    Already have an account? Login
+                    Have an account? Login
                   </button>
                 </form>
               </>
