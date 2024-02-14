@@ -35,12 +35,12 @@ function BrandHeader() {
     const handleScroll = () => {
       const triggerHeight = 50;
       const scrollAmount = window.scrollY;
-      const rotation = scrollAmount % 180;
+      const rotation = scrollAmount % 720;
 
       if (window.scrollY > triggerHeight) {
-        gsap.to(headerRef.current, { y: -50, opacity: 0, duration: 0.25 });
+        gsap.to(headerRef.current, { y: -50, opacity: 0, duration: 0.2 });
       } else {
-        gsap.to(headerRef.current, { y: 0, opacity: 1, duration: 0.25 });
+        gsap.to(headerRef.current, { y: 0, opacity: 1, duration: 0.2 });
       }
 
       gsap.to(logosRef.current, { rotation, duration: 0.1, ease: "none" });

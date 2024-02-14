@@ -38,7 +38,7 @@ function App() {
                 <Route path="/user-profile" element={<UserProfile />} />
               </Routes>
             </div>
-            <FooterBanner /> {/* Include the FooterBanner component here */}
+            <FooterBanner />
           </div>
         </CartProvider>
       </UserProvider>

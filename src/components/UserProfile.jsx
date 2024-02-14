@@ -1,7 +1,5 @@
 // UserProfile.jsx
 
-// UserProfile.jsx
-
 import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
@@ -30,9 +28,9 @@ function UserProfile() {
   }, [setIsLoggedIn]);
 
   const toggleLoginFormVisibility = () => {
-    setLoginForm({ email: "", password: "" }); // Clear login form fields
+    setLoginForm({ email: "", password: "" });
     setIsLoginFormVisible(!isLoginFormVisible);
-    setLoginFailed(false); // Clear login error on form switch
+    setLoginFailed(false);
   };
 
   const handleLoginChange = (e) => {
@@ -162,6 +160,7 @@ function UserProfile() {
                   <button
                     type="submit"
                     className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                    style={{ fontFamily: "Didot, serif" }}
                   >
                     Login
                   </button>
@@ -169,6 +168,7 @@ function UserProfile() {
                     type="button"
                     onClick={toggleLoginFormVisibility}
                     className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                    style={{ fontFamily: "Didot, serif" }}
                   >
                     Sign Up for An Account
                   </button>
@@ -180,6 +180,7 @@ function UserProfile() {
                 <form
                   onSubmit={submitSignup}
                   className="flex flex-col space-y-4 items-center"
+                  style={{ fontFamily: "Didot, serif" }}
                 >
                   <input
                     type="text"
@@ -231,6 +232,7 @@ function UserProfile() {
                     type="button"
                     onClick={toggleLoginFormVisibility}
                     className="w-full px-4 py-2 bg-black dark-gold-text rounded-md"
+                    style={{ fontFamily: "Didot, serif" }}
                   >
                     Already have an account? Login
                   </button>

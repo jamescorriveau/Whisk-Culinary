@@ -6,9 +6,10 @@ import ProductImageContext from "./ProductImageContext";
 import { PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 
 function ShoppingCart() {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart, isLoggedIn } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState("0.00");
+  const [showCheckoutButton, setShowCheckoutButton] = useState(true);
 
   useEffect(() => {
     setCartItems(cart);
@@ -65,6 +66,14 @@ function ShoppingCart() {
     });
   };
 
+  const handleCheckout = () => {
+    if (!isLoggedIn) {
+      alert("Please log in to checkout.");
+    } else {
+      setShowCheckoutButton(false); // Set to false when the user logs in
+    }
+  };
+
   return (
     <div className="pt-5 px-4">
       {cartItems.length > 0 ? (
@@ -95,7 +104,7 @@ function ShoppingCart() {
                       onChange={(e) =>
                         handleQuantityChange(item.id, parseInt(e.target.value))
                       }
-                      className="w-1/2 px-1 py-1 bg-white rounded-md text-md border border-gray-300"
+                      className="w-1/2 px-1 py-1 bg-black dark-gold-text rounded-md text-md"
                     >
                       {[...Array(10).keys()].map((num) => (
                         <option key={num + 1} value={num + 1}>
@@ -128,7 +137,17 @@ function ShoppingCart() {
           </div>
         </div>
       )}
-      {cartItems.length > 0 && (
+      {cartItems.length > 0 && showCheckoutButton && (
+        <div className="flex justify-end mt-2.5 mb-4">
+          <button
+            onClick={handleCheckout}
+            className="w-1/4 px-4 py-2 bg-black dark-gold-text rounded-md"
+          >
+            Checkout
+          </button>
+        </div>
+      )}
+      {cartItems.length > 0 && !showCheckoutButton && isLoggedIn && (
         <div className="flex justify-end mt-2.5 mb-4">
           <div className="flex flex-col items-center">
             <div className="mb-4">
