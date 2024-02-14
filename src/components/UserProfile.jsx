@@ -140,6 +140,7 @@ function UserProfile() {
                 <form
                   onSubmit={handleLogin}
                   className="flex flex-col space-y-4 items-center"
+                  style={{ fontFamily: "Didot, serif" }}
                 >
                   <input
                     type="email"
