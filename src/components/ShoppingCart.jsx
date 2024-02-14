@@ -70,60 +70,96 @@ function ShoppingCart() {
     if (!isLoggedIn) {
       alert("Please log in to checkout.");
     } else {
-      setShowCheckoutButton(false); // Set to false when the user logs in
+      setShowCheckoutButton(false);
     }
   };
 
   return (
     <div className="pt-5 px-4">
       {cartItems.length > 0 ? (
-        <ul>
-          {cartItems.map((item, index) => (
-            <li
-              key={index}
-              className="flex items-center mb-2.5 py-2 border-b border-gray-300"
-            >
-              <ProductImageContext
-                imageUrl={item.image}
-                altText={item.name}
-                imageSizeClass="w-32 h-32"
-              />
-              <div className="ml-6 flex-grow">
-                <strong>{item.name}</strong>
-                <p>{item.description}</p>
-                <div className="flex justify-between items-center mt-2">
-                  <div>
-                    <strong>Price:</strong> ${item.price.toFixed(2)}
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-sm mr-2 font-medium text-gray-700">
-                      Qty:
-                    </span>
-                    <select
-                      value={item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(item.id, parseInt(e.target.value))
-                      }
-                      className="w-1/2 px-1 py-1 bg-black dark-gold-text rounded-md text-md"
-                    >
-                      {[...Array(10).keys()].map((num) => (
-                        <option key={num + 1} value={num + 1}>
-                          {num + 1}
-                        </option>
-                      ))}
-                    </select>
-                    <button
-                      onClick={() => handleRemoveFromCart(item.id)}
-                      className="ml-2 bg-red-500 text-white px-3 py-1.5 rounded text-sm focus:outline-none focus:ring"
-                    >
-                      Remove
-                    </button>
+        <>
+          <ul>
+            {cartItems.map((item, index) => (
+              <li
+                key={index}
+                className="flex items-center mb-2.5 py-2 border-b border-gray-300"
+              >
+                <ProductImageContext
+                  imageUrl={item.image}
+                  altText={item.name}
+                  imageSizeClass="w-32 h-32"
+                />
+                <div className="ml-6 flex-grow">
+                  <strong>{item.name}</strong>
+                  <p>{item.description}</p>
+                  <div className="flex justify-between items-center mt-2">
+                    <div>
+                      <strong>Price:</strong> ${item.price.toFixed(2)}
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-sm mr-2 font-medium text-gray-700">
+                        Qty:
+                      </span>
+                      <select
+                        value={item.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            item.id,
+                            parseInt(e.target.value)
+                          )
+                        }
+                        className="w-1/2 px-1 py-1 bg-black dark-gold-text rounded-md text-md"
+                      >
+                        {[...Array(10).keys()].map((num) => (
+                          <option key={num + 1} value={num + 1}>
+                            {num + 1}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        onClick={() => handleRemoveFromCart(item.id)}
+                        className="ml-2 bg-red-500 text-white px-3 py-1.5 rounded text-sm focus:outline-none focus:ring"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
+              </li>
+            ))}
+          </ul>
+          <div className="flex justify-end mt-2.5 mb-4">
+            <div className="flex flex-col items-end">
+              <div className="mb-4">
+                <strong>Total: ${totalAmount}</strong>
               </div>
-            </li>
-          ))}
-        </ul>
+              {showCheckoutButton && (
+                <button
+                  onClick={handleCheckout}
+                  className="px-4 py-2 bg-black dark-gold-text rounded-md"
+                >
+                  Checkout
+                </button>
+              )}
+            </div>
+          </div>
+          {!showCheckoutButton && isLoggedIn && (
+            <div className="flex justify-end mt-2.5 mb-4">
+              <div className="flex flex-col items-end">
+                {["PAYPAL", "CARD"].map((fundingSource, index) => (
+                  <div className="mb-2" key={index}>
+                    <PayPalButtons
+                      fundingSource={FUNDING[fundingSource]}
+                      style={{ layout: "vertical" }}
+                      createOrder={createOrder}
+                      onApprove={onApprove}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <div className="flex justify-center items-center h-full">
           <div className="text-center">
@@ -134,35 +170,6 @@ function ShoppingCart() {
               style={{ width: "200px", height: "200px" }}
             />
             <p>Your Shopping Bag is empty.</p>
-          </div>
-        </div>
-      )}
-      {cartItems.length > 0 && showCheckoutButton && (
-        <div className="flex justify-end mt-2.5 mb-4">
-          <button
-            onClick={handleCheckout}
-            className="w-1/4 px-4 py-2 bg-black dark-gold-text rounded-md"
-          >
-            Checkout
-          </button>
-        </div>
-      )}
-      {cartItems.length > 0 && !showCheckoutButton && isLoggedIn && (
-        <div className="flex justify-end mt-2.5 mb-4">
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
-              <strong>Total: ${totalAmount}</strong>
-            </div>
-            {["PAYPAL", "CARD"].map((fundingSource, index) => (
-              <div className="mb-2" key={`${totalAmount}-${fundingSource}`}>
-                <PayPalButtons
-                  fundingSource={FUNDING[fundingSource]}
-                  style={{ layout: "vertical" }}
-                  createOrder={createOrder}
-                  onApprove={onApprove}
-                />
-              </div>
-            ))}
           </div>
         </div>
       )}
