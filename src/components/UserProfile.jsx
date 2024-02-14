@@ -114,6 +114,13 @@ function UserProfile() {
   return (
     <div className="flex flex-col items-center space-y-12 p-4">
       <div className="dropdown">
+        <img
+          src="/Whisk-logo.png"
+          alt="Whisk Logo"
+          className="mx-auto mt-3"
+          style={{ maxWidth: "100px", height: "auto" }}
+        />
+
         {isLoggedIn ? (
           <div>
             <p style={{ color: "black", marginBottom: "20px" }}>

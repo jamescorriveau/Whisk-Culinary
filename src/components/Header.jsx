@@ -46,17 +46,17 @@ function Header() {
     e.preventDefault();
     if (localSearchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(localSearchQuery)}`);
-      setLocalSearchQuery(""); // Also clear the search field upon submit
+      setLocalSearchQuery("");
       setSuggestions([]);
-      setHighlightedIndex(-1); // Reset highlighted index
+      setHighlightedIndex(-1);
     }
   };
 
   const handleSuggestionClick = (suggestion) => {
     navigate(`/search?q=${encodeURIComponent(suggestion)}`);
-    setLocalSearchQuery(""); // Clear the search field
+    setLocalSearchQuery("");
     setSuggestions([]);
-    setHighlightedIndex(-1); // Reset highlighted index
+    setHighlightedIndex(-1);
   };
 
   const toggleDropdown = () => {
