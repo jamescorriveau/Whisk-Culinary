@@ -56,7 +56,7 @@
 
 .dropdown-menu {
   position: absolute;
-  margin-right: 20px;
+  margin-right: 19px;
   right: 0;
   top: 100%;
   z-index: 100;
@@ -64,7 +64,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 18%;
+  width: 20%;
   max-height: 600px;
   overflow-y: auto;
   cursor: pointer;
