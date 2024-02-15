@@ -113,7 +113,7 @@ function Header() {
           value={localSearchQuery}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
-          className="py-2 pl-10 pr-2 text-black outline-none bg-gray-200 rounded-full"
+          className="py-2 pl-10 pr-2 text-black outline-none bg-white rounded-full"
           style={{ width: "350px" }}
         />
         <svg
