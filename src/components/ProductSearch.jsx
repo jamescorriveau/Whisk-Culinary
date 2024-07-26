@@ -15,7 +15,6 @@ function ProductSearch() {
 
   useEffect(() => {
     if (searchQuery) {
-      // Assuming you have an endpoint to fetch products based on the search query
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
         .then((response) => response.json())
         .then((data) => setFilteredProducts(data))
