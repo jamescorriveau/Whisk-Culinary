@@ -15,8 +15,15 @@ function ProductSearch() {
 
   useEffect(() => {
     if (searchQuery) {
-      fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
-        .then((response) => response.json())
+      fetch(
+        `http://localhost:8000/api/search?q=${encodeURIComponent(searchQuery)}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
         .then((data) => setFilteredProducts(data))
         .catch((error) => {
           console.error("Error fetching data:", error);
