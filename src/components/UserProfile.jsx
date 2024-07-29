@@ -108,6 +108,7 @@ function UserProfile() {
     e.preventDefault();
     setHasAttemptedAuth(true);
     try {
+      console.log("Submitting signup form data: ", signupForm); // Log the form data
       const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,9 +119,39 @@ function UserProfile() {
         const responseData = await response.json();
         setIsNewUser(true);
         setCurrentUser(responseData.username);
-        handleLogin({ preventDefault: () => {}, target: loginForm });
+
+        // Automatically log in the user after successful signup
+        const loginData = {
+          email: signupForm.email,
+          password: signupForm.password,
+        };
+
+        // Log the login data
+        console.log("Auto login data: ", loginData);
+
+        const loginResponse = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData),
+        });
+
+        if (loginResponse.ok) {
+          const loginResponseData = await loginResponse.json();
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify({ username: loginResponseData.username })
+          );
+          setCurrentUser(loginResponseData.username);
+          setIsLoggedIn(true);
+          setLoginFailed(false);
+        } else {
+          console.error("Auto login error:", loginResponse);
+          setLoginFailed(true);
+        }
       } else {
-        console.error("Signup error:", response);
+        const errorData = await response.json();
+        console.error("Signup error:", response.status, errorData);
       }
     } catch (error) {
       console.error("Network error:", error);

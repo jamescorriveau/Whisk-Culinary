@@ -24,10 +24,11 @@ login_manager.init_app(app)
 def load_user(user_id):
     return db.session.get(User, int(user_id))
 
-
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
+    print(f"Login attempt with data: {data}")  # Log the received data
+
     email = data.get('email')
     password = data.get('password')
     user = User.query.filter_by(email=email).first()
@@ -36,6 +37,7 @@ def login():
         login_user(user, remember=True)
         return jsonify({"message": "Login successful", "username": user.username}), 200
     else:
+        print("Invalid login attempt")  # Log invalid attempts
         return jsonify({"error": "Invalid email or password"}), 401
 
 @app.route('/api/logout')
@@ -43,11 +45,11 @@ def logout():
     logout_user()
     return jsonify({"message": "Logged out successfully"}), 200
 
-
 @app.route('/api/register', methods=['POST'])
 def register():
     try:
         data = request.json
+        print(f"Received registration data: {data}")  # Log received data
         email = data.get('email')
 
         if User.query.filter_by(email=email).first():
@@ -69,17 +71,15 @@ def register():
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
 
     except Exception as e:
-        print(f"Error in register route: {e}")
-        return jsonify({"error": "An error occurred during registration"}), 500
-    
-    
+        print(f"Error in register route: {e}")  # Log error details
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/is_logged_in', methods=['GET'])
 def is_logged_in():
     if current_user.is_authenticated:
         return jsonify({"is_logged_in": True}), 200
     else:
-        return jsonify({"is_logged_in": False}), 200    
-    
+        return jsonify({"is_logged_in": False}), 200
 
 @app.route('/api/products', methods=['GET'])
 @login_required
@@ -89,7 +89,6 @@ def get_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
 
 @app.route('/api/search', methods=['GET'])
 def search_products():
@@ -99,8 +98,7 @@ def search_products():
         return jsonify([product.to_dict() for product in products])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-    
+
 @app.route('/api/cart', methods=['GET'])
 @login_required
 def get_cart():
@@ -112,7 +110,6 @@ def get_cart():
     except Exception as e:
         print(f"Error fetching cart items: {e}")
         return jsonify({"error": "Internal server error"}), 500
-   
 
 @app.route('/api/cart/add', methods=['POST'])
 @login_required
@@ -135,7 +132,6 @@ def add_to_cart():
 
     db.session.commit()
     return jsonify({"message": "Product added to cart"}), 200
-
 
 @app.route('/api/cart/remove', methods=['POST'])
 @login_required
@@ -161,4 +157,3 @@ def remove_from_cart():
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
-
