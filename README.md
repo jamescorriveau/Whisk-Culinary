@@ -31,5 +31,3 @@ This project is a full-stack web application built using **React** for the front
 3. **Database Operations**: SQLAlchemy handles all database operations, ensuring data consistency and integrity with the custom database.
 4. **Payment Processing**: Upon checkout, the application interacts with the PayPal API to process payments securely.
 5. **Responsive Design**: Media queries ensure the application is accessible and user-friendly across different device sizes.
-
-This setup ensures a cohesive and scalable application that integrates multiple technologies to deliver a seamless user experience.
