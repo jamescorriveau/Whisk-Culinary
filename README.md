@@ -1,3 +1,5 @@
+# Whisk Culinary Tools
+
 # Project Overview
 
 This project is a full-stack web application built using **React** for the frontend, **Flask** and **Python** for the backend, and **SQLAlchemy** for database management. The application is styled with **Vanilla CSS & Tailwind CSS** and integrates **PayPal** for payment processing. The database was custom-built for the application's specific needs. Below is a breakdown of how the different components work together.
