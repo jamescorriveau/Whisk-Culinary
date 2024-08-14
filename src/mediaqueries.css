@@ -1,0 +1,150 @@
+/* Tablets (Large and Medium) */
+@media screen and (max-width: 1024px) {
+  .content {
+    margin-top: 100px;
+    padding: 0 1rem;
+  }
+
+  .header-custom {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .image-slider img {
+    height: 350px;
+    margin-top: 100px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .product-item {
+    padding: 6px;
+  }
+
+  .brand-header-container {
+    margin-top: 50px;
+  }
+}
+
+/* Large Smartphones (Galaxy S20 Ultra, iPhone 12 Pro Max) */
+@media screen and (max-width: 800px) {
+  .content {
+    margin-top: 100px !important; /* Space for the header */
+    padding: 0 0.5rem;
+  }
+
+  .header-custom {
+    margin-top: 0 !important; /* No extra space */
+    z-index: 1000; /* Ensure header stays on top */
+    position: relative;
+  }
+
+  .brand-header-container {
+    margin-top: 20px !important; /* Space to avoid overlap with carousel */
+    padding: 0.5rem;
+    z-index: 999; /* Ensure brand header stays above the content */
+    position: relative;
+  }
+
+  .image-slider {
+    margin-top: 20px !important; /* Ensure space between brand header and carousel */
+    position: relative;
+    z-index: 1;
+  }
+
+  .image-slider img {
+    height: 300px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 8px;
+  }
+
+  .product-item {
+    padding: 5px;
+  }
+}
+
+/* Small Smartphones (iPhone SE, older phones) */
+@media screen and (max-width: 600px) {
+  .content {
+    margin-top: 90px !important; /* Space for the header */
+    padding: 0;
+  }
+
+  .header-custom {
+    margin-top: 0 !important; /* No extra space */
+    z-index: 1000; /* Ensure header stays on top */
+    position: relative;
+  }
+
+  .brand-header-container {
+    margin-top: 20px !important; /* Space to avoid overlap with carousel */
+    padding: 0.25rem;
+    z-index: 999; /* Ensure brand header stays above the content */
+    position: relative;
+  }
+
+  .image-slider {
+    margin-top: 20px !important; /* Ensure space between brand header and carousel */
+    position: relative;
+    z-index: 1;
+  }
+
+  .image-slider img {
+    height: 250px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5px;
+  }
+
+  .product-item {
+    padding: 4px;
+  }
+}
+
+/* Extra Small Smartphones (iPhone SE, older phones) */
+@media screen and (max-width: 375px) {
+  .content {
+    margin-top: 100px !important; /* Space for the header */
+    padding: 0;
+  }
+
+  .header-custom {
+    margin-top: 0 !important; /* No extra space */
+    z-index: 1000; /* Ensure header stays on top */
+    position: relative;
+  }
+
+  .brand-header-container {
+    margin-top: 20px !important; /* Space to avoid overlap with carousel */
+    padding: 0.25rem;
+    z-index: 999; /* Ensure brand header stays above the content */
+    position: relative;
+  }
+
+  .image-slider {
+    margin-top: 20px !important; /* Ensure space between brand header and carousel */
+    position: relative;
+    z-index: 1;
+  }
+
+  .image-slider img {
+    height: 200px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 4px;
+  }
+
+  .product-item {
+    padding: 3px;
+  }
+}

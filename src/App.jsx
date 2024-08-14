@@ -14,6 +14,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import FooterBanner from "./components/FooterBanner";
 import "./App.css";
 import "./index.css";
+import "./mediaqueries.css";
 
 function App() {
   const initialOptions = {
