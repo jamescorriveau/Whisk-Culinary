@@ -1,5 +1,13 @@
 # Whisk Culinary Tools
 
+🚧 **Work in Progress** 🚧
+
+This project is still under development, and is continuously updated. I am currently add media queries for a responsive layout.
+
+🔗 **Check out the most up-to-date version of the web app on my portfolio:**
+
+[James Corriveau Portfolio](https://james-corriveau-portfolio.netlify.app)
+
 ## Project Overview
 
 This project is a full-stack web application built using **React** for the frontend, **Flask** and **Python** for the backend, and **SQLAlchemy** for database management. The application is styled with **Vanilla CSS & Tailwind CSS** and integrates **PayPal** for payment processing. The database was custom-built for the application's specific needs. Below is a breakdown of how the different components work together.
