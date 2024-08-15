@@ -2,7 +2,7 @@
 
 🚧 **Work in Progress** 🚧
 
-This project is still under development, and is continuously updated. I am currently add media queries for a responsive layout.
+This project is still under development and is continuously updated. I am currently add media queries for a responsive layout.
 
 🔗 **Check out the most up-to-date version of the web app on my portfolio:**
 
