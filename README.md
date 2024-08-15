@@ -4,7 +4,7 @@
 
 This project is still under development and is continuously updated. I am currently adding media queries for a more responsive layout.
 
-🔗 **Check out the most up-to-date version of the Whisk on my portfolio:**
+🔗 **Check out the most up-to-date version of Whisk on my portfolio:**
 
 [James Corriveau Portfolio](https://james-corriveau-portfolio.netlify.app)
 
