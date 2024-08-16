@@ -24,6 +24,8 @@ Whisk is a full-stack web application built as an online store with a specifical
 
 - **Tailwind CSS**: Tailwind CSS for development of responsive and consistent UIs.
 
+- **Greensock Animation Platform (GSAP)**: GSAP is used for the scroll effects, the Whisk logo spins out of frame and Brand Header component collapses simotaniously as the user scrolls down for a larger viewport while the Header stays sticky.
+
 - **Media Queries**: Media queries are used for adapting to various screen sizes i.e. desktops and mobile devices. Separate CSS files manage these breakpoints.
 
 ## Backend Components
