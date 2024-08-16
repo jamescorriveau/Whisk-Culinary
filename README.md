@@ -10,7 +10,7 @@ This project is still under development and is continuously updated. I am curren
 
 ## Project Overview
 
-This project is a full-stack web application built using **React** for the frontend, **Flask** and **Python** for the backend, and **SQLAlchemy** for database management. The application is styled with **Vanilla CSS & Tailwind CSS** and integrates **PayPal** for payment processing. The database was custom-built for the application's specific needs. Below is a breakdown of how the different components work together.
+Whisk is a full-stack web application built as an online store with a specifically curated inventory (created by me) for customers in the market for professional grade kitchen tools. Below is a breakdown of this project...
 
 1. **User Interaction**: React frontend, searching for products, adding items to their cart, and managing their accounts.
 2. **Backend Communication**: Flask backend via RESTful API calls, which handle tasks like authenticating users, fetching product data, and updating the shopping cart.
