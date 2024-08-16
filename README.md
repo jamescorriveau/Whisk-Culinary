@@ -1,8 +1,8 @@
-# Whisk Culinary Tools
+# Whisk Culinary Online Store
 
 🚧 **Work in Progress** 🚧
 
-This project is still under development and is continuously updated. I am currently adding media queries for a more responsive layout.
+This project is still under development and is continuously updated. I am currently adding media queries for a more responsive layout and creating a more reliable search bar.
 
 🔗 **Check out the most up-to-date version of Whisk on my portfolio:**
 
