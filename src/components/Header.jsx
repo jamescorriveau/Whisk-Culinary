@@ -15,7 +15,15 @@ function Header() {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  const fetchSuggestions = async (query) => {
+  const debounce = (func, delay) => {
+    let debounceTimer;
+    return function (...args) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+
+  const fetchSuggestions = debounce(async (query) => {
     if (!query.trim()) {
       setSuggestions([]);
       return;
@@ -28,6 +36,10 @@ function Header() {
       if (response.ok) {
         const data = await response.json();
         setSuggestions(data.map((product) => product.name));
+        console.log(
+          "Suggestions:",
+          data.map((product) => product.name)
+        );
       } else {
         throw new Error("Network response was not ok.");
       }
@@ -35,7 +47,7 @@ function Header() {
       console.error("Error fetching product suggestions:", error);
       setSuggestions([]);
     }
-  };
+  }, 300);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -128,6 +140,23 @@ function Header() {
         >
           <path d="M 9 2 C 5.1458514 2 2 5.1458514 2 9 C 2 12.854149 5.1458514 16 9 16 C 10.747998 16 12.345009 15.348024 13.574219 14.28125 L 14 14.707031 L 14 16 L 20 22 L 22 20 L 16 14 L 14.707031 14 L 14.28125 13.574219 C 15.348024 12.345009 16 10.747998 16 9 C 16 5.1458514 12.854149 2 9 2 z M 9 4 C 11.773268 4 14 6.2267316 14 9 C 14 11.773268 11.773268 14 9 14 C 6.2267316 14 4 11.773268 4 9 C 4 6.2267316 6.2267316 4 9 4 z"></path>
         </svg>
+
+        {/* Suggestions Dropdown */}
+        {suggestions.length > 0 && (
+          <div className="absolute left-0 right-0 top-full bg-white border border-gray-300 rounded mt-1 z-10 max-h-60 overflow-y-auto">
+            {suggestions.map((suggestion, index) => (
+              <div
+                key={index}
+                className={`p-2 cursor-pointer hover:bg-gray-200 text-black ${
+                  index === highlightedIndex ? "bg-gray-300" : ""
+                }`}
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </div>
+            ))}
+          </div>
+        )}
       </form>
       <div className="flex items-center">
         <button
@@ -184,7 +213,7 @@ function Header() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
               />
             </svg>
             <span className="ml-2">({totalItemsInCart})</span>

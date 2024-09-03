@@ -127,7 +127,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 1000;
   background: white;
   border: 1px solid #ddd;
   border-top: none;

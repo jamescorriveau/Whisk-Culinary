@@ -1,5 +1,3 @@
-# app.py
-
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -8,7 +6,7 @@ from extensions import db, migrate, bcrypt
 from models import Product, User, ShoppingCart
 
 app = Flask(__name__)
-CORS(app)  # Allow all origins by default, or specify allowed origins if needed
+CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'default-secret-key')
@@ -27,8 +25,6 @@ def load_user(user_id):
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
-    print(f"Login attempt with data: {data}")  # Log the received data
-
     email = data.get('email')
     password = data.get('password')
     user = User.query.filter_by(email=email).first()
@@ -37,7 +33,6 @@ def login():
         login_user(user, remember=True)
         return jsonify({"message": "Login successful", "username": user.username}), 200
     else:
-        print("Invalid login attempt")  # Log invalid attempts
         return jsonify({"error": "Invalid email or password"}), 401
 
 @app.route('/api/logout')
@@ -49,7 +44,6 @@ def logout():
 def register():
     try:
         data = request.json
-        print(f"Received registration data: {data}")  # Log received data
         email = data.get('email')
 
         if User.query.filter_by(email=email).first():
@@ -71,7 +65,6 @@ def register():
         return jsonify({"message": "User registered successfully", "username": new_user.username}), 201
 
     except Exception as e:
-        print(f"Error in register route: {e}")  # Log error details
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/is_logged_in', methods=['GET'])
@@ -93,11 +86,21 @@ def get_products():
 @app.route('/api/search', methods=['GET'])
 def search_products():
     try:
-        query = request.args.get('q', '')
-        products = Product.query.filter(Product.name.contains(query)).all()
+        query = request.args.get('q', '').strip()
+
+        if not query:
+            return jsonify([])  # Return an empty list if the query is empty
+
+        products = Product.query.filter(Product.name.ilike(f"%{query}%")).all()
+
+        if not products:
+            return jsonify([])  # Return an empty list if no products match
+
         return jsonify([product.to_dict() for product in products])
+
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        app.logger.error(f"Search error: {e}")
+        return jsonify({"error": "An error occurred while searching for products"}), 500
 
 @app.route('/api/cart', methods=['GET'])
 @login_required
@@ -108,7 +111,6 @@ def get_cart():
         cart_items_dict = [item.to_dict() for item in cart_items]
         return jsonify(cart_items_dict)
     except Exception as e:
-        print(f"Error fetching cart items: {e}")
         return jsonify({"error": "Internal server error"}), 500
 
 @app.route('/api/cart/add', methods=['POST'])
@@ -139,20 +141,16 @@ def remove_from_cart():
     user = current_user
     try:
         data = request.get_json()
-        product_id = data.get('product_id')  
-        print(f"Attempting to remove product ID: {product_id} for user ID: {user.id}") 
+        product_id = data.get('product_id')
 
         existing_item = ShoppingCart.query.filter_by(user_id=user.id, product_id=product_id).first()
         if existing_item:
-            print(f"Found item in cart: {existing_item}")  
             db.session.delete(existing_item)
             db.session.commit()
             return jsonify({"message": "Product removed from cart"}), 200
         else:
-            print("Product not found in cart")  
             return jsonify({"error": "Product not in cart"}), 404
     except Exception as e:
-        print(f"Error removing item from cart: {e}") 
         return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == '__main__':
