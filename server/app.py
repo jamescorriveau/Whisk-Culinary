@@ -89,13 +89,11 @@ def search_products():
         query = request.args.get('q', '').strip()
 
         if not query:
-            return jsonify([])  # Return an empty list if the query is empty
-
+            return jsonify([])  
         products = Product.query.filter(Product.name.ilike(f"%{query}%")).all()
 
         if not products:
-            return jsonify([])  # Return an empty list if no products match
-
+            return jsonify([]) 
         return jsonify([product.to_dict() for product in products])
 
     except Exception as e:
